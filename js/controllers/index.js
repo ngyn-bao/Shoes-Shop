@@ -76,10 +76,8 @@ function getDuLieuGiay() {
     });
 }
 
-getDuLieuGiay();
-
-renderBanner();
-renderDuLieuGiay();
+// renderBanner();
+// renderDuLieuGiay();
 
 // function renderDuLieuGiay(arr, idTheCha = "baiTap2") {
 //   let content = "";
@@ -171,4 +169,5 @@ window.onload = function () {
   const urlParams = new URLSearchParams(window.location.search);
   const myParam = urlParams.get("productid");
   console.log("param", myParam);
+  getDuLieuGiay();
 };
