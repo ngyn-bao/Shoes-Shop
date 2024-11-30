@@ -1,0 +1,36 @@
+.banner {
+  width: 100%;
+  padding: 50px 0;
+  .banner-content {
+    .banner-item {
+      position: relative;
+      font-size: 30px;
+      padding: 0 50px 50px;
+      background-image: url(../img/image\ 6.png);
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: bottom;
+    }
+    .owl-nav {
+      position: absolute;
+      top: 30%;
+
+      left: 0;
+      right: 0;
+      .owl-prev,
+      .owl-next {
+        position: absolute;
+        border: none;
+        height: 100px;
+        color: inherit;
+        background: none;
+      }
+      .owl-prev {
+        left: 0;
+      }
+      .owl-next {
+        right: 0;
+      }
+    }
+  }
+}

@@ -1,0 +1,71 @@
+.form-group {
+  position: relative;
+
+  .require {
+    position: absolute;
+    top: 5px;
+    right: 20px;
+  }
+}
+
+.radio-button .container {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 22px;
+  user-select: none;
+
+  input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+
+    &:checked ~ .checkmark {
+      background-color: #2196f3;
+    }
+    &:checked ~ .checkmark::after {
+      display: block;
+    }
+  }
+
+  &:hover {
+    input ~ .checkmark {
+      background-color: #ccc;
+    }
+  }
+
+  .checkmark {
+    &::after {
+      top: 9px;
+      left: 9px;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: white;
+    }
+  }
+}
+
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  background-color: #eee;
+  border-radius: 50%;
+
+  &::after {
+    content: "";
+    position: absolute;
+    display: none;
+  }
+}
+
+.sp-thongbao {
+  color: red;
+  font-size: 0.9rem;
+  display: none;
+}

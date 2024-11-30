@@ -1,0 +1,158 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+*:focus {
+  border: transparent;
+}
+
+*:focus-visible {
+  outline: none;
+}
+
+a {
+  text-decoration: none;
+  color: #5d5d5d;
+}
+
+ul {
+  list-style: none;
+}
+
+header .main-nav {
+  padding: 20px 0;
+}
+header .main-nav .nav-left img {
+  width: 15%;
+}
+header .main-nav .nav-right {
+  font-size: 18px;
+}
+header .secondary-nav {
+  font-size: 20px;
+  color: #5d5d5d;
+}
+header .secondary-nav .nav-item {
+  margin: 20px 0;
+}
+header .secondary-nav .nav-item .nav-link:hover {
+  color: #2a2a2a;
+}
+header .secondary-nav .nav-item .nav-link.active {
+  color: black;
+  border-bottom: 2px solid black;
+}
+
+.banner {
+  width: 100%;
+  padding: 50px 0;
+}
+.banner .banner-content .banner-item {
+  position: relative;
+  font-size: 30px;
+  padding: 0 50px 50px;
+  background-image: url(../img/image\ 6.png);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: bottom;
+}
+.banner .banner-content .owl-nav {
+  position: absolute;
+  top: 30%;
+  left: 0;
+  right: 0;
+}
+.banner .banner-content .owl-nav .owl-prev,
+.banner .banner-content .owl-nav .owl-next {
+  position: absolute;
+  border: none;
+  height: 100px;
+  color: inherit;
+  background: none;
+}
+.banner .banner-content .owl-nav .owl-prev {
+  left: 0;
+}
+.banner .banner-content .owl-nav .owl-next {
+  right: 0;
+}
+
+footer {
+  padding-left: 0;
+  padding-right: 0;
+}
+footer .footer-content .footer-item {
+  border-right: 2px solid gray;
+}
+footer .top-footer {
+  background-color: #bcbcbc;
+}
+footer .bottom-footer {
+  background-color: #7a7a7a;
+}
+
+.form-group {
+  position: relative;
+}
+.form-group .require {
+  position: absolute;
+  top: 5px;
+  right: 20px;
+}
+
+.radio-button .container {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 22px;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+}
+.radio-button .container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
+.radio-button .container input:checked ~ .checkmark {
+  background-color: #2196f3;
+}
+.radio-button .container input:checked ~ .checkmark::after {
+  display: block;
+}
+.radio-button .container:hover input ~ .checkmark {
+  background-color: #ccc;
+}
+.radio-button .container .checkmark::after {
+  top: 9px;
+  left: 9px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: white;
+}
+
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  background-color: #eee;
+  border-radius: 50%;
+}
+.checkmark::after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+.sp-thongbao {
+  color: red;
+  font-size: 0.9rem;
+  display: none;
+}/*# sourceMappingURL=style.css.map */
