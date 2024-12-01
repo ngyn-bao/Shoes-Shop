@@ -63,6 +63,7 @@ function register() {
         }
       );
 
+      form.reset();
       console.log("Đăng ký thành công!\n", resolve.data.content);
     })
     .catch((error) => {
