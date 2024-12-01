@@ -10,11 +10,14 @@
       text-decoration: none;
       transition: background-color 0.3s;
       border: 1px solid #ddd;
+      border-radius: 5px;
+      margin: 0 5px;
 
       &.active {
         background-color: #2a2a2a;
         color: white;
         border: 1px solid #2a2a2a;
+        border-radius: 5px;
       }
 
       &:hover:not(.active) {

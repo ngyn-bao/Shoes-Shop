@@ -200,11 +200,14 @@ footer .bottom-footer {
   text-decoration: none;
   transition: background-color 0.3s;
   border: 1px solid #ddd;
+  border-radius: 5px;
+  margin: 0 5px;
 }
 .center .pagination button.active {
   background-color: #2a2a2a;
   color: white;
   border: 1px solid #2a2a2a;
+  border-radius: 5px;
 }
 .center .pagination button:hover:not(.active) {
   background-color: #ddd;

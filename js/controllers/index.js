@@ -192,7 +192,7 @@ function renderPagination(
   let totalPages = Math.ceil(totalRow / pageSize);
   let content = "";
 
-  content += `<button class="page-btn" id="prev-btn">Previous</button>`;
+  content += `<button class="page-btn" id="prev-btn">&laquo;</button>`;
 
   if (currentPage <= 1) currentPage = 1;
 
@@ -204,7 +204,7 @@ function renderPagination(
     `;
   }
 
-  content += `<button class="page-btn" id="next-btn">Next</button>`;
+  content += `<button class="page-btn" id="next-btn">&raquo;</button>`;
 
   if (currentPage > totalPages) currentPage = totalPages;
 
