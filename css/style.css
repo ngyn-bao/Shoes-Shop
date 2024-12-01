@@ -155,4 +155,63 @@ footer .bottom-footer {
   color: red;
   font-size: 0.9rem;
   display: none;
+}
+
+.cd-top {
+  width: 50px;
+  height: 50px;
+  background-color: black;
+  color: white;
+  position: fixed;
+  right: 30px;
+  bottom: 50px;
+  opacity: 0;
+  display: inline-block;
+  visibility: hidden;
+  line-height: 50px;
+  text-align: center;
+  z-index: 999;
+  border-radius: 50%;
+}
+
+.cd-top--is-visible {
+  visibility: visible;
+  opacity: 1;
+}
+
+.cd-top--fade-out {
+  opacity: 0.5;
+}
+
+.cd-top:hover {
+  opacity: 1;
+}
+
+.center {
+  text-align: center;
+}
+.center .pagination {
+  display: inline-block;
+}
+.center .pagination button {
+  color: black;
+  float: left;
+  padding: 8px 16px;
+  text-decoration: none;
+  transition: background-color 0.3s;
+  border: 1px solid #ddd;
+}
+.center .pagination button.active {
+  background-color: #2a2a2a;
+  color: white;
+  border: 1px solid #2a2a2a;
+}
+.center .pagination button:hover:not(.active) {
+  background-color: #ddd;
+}
+.center .pagination button:disabled {
+  background-color: light-dark(rgba(239, 239, 239, 0.3), rgba(19, 1, 1, 0.3));
+  color: light-dark(rgba(16, 16, 16, 0.3), rgba(255, 255, 255, 0.3));
+  border-color: light-dark(rgba(118, 118, 118, 0.3), rgba(195, 195, 195, 0.3));
+  cursor: not-allowed;
 }/*# sourceMappingURL=style.css.map */

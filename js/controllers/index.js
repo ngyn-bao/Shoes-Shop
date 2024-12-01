@@ -3,6 +3,7 @@ import {
   chuyenDoiTienTe,
   getRandomInt,
   renderDuLieuGiay,
+  renderDuLieuGiay2,
   shortenText,
 } from "../common/util.js";
 
@@ -56,18 +57,35 @@ import {
 // renderArrMonAn();
 
 // Home Shoes Shop
-function getDuLieuGiay() {
+function getDuLieuGiay(pageIndex = 1, pageSize = 6) {
   let promise = axios({
     url: "https://shop.cyberlearn.vn/api/Product",
     method: "GET",
   });
-
   promise
     .then((resolve) => {
-      let arr = resolve.data.content;
-      console.log(arr);
+      // let arr = resolve.data.content;
+      // console.log(arr);
       renderBanner(resolve.data.content);
-      renderDuLieuGiay(resolve.data.content);
+      // renderDuLieuGiay(resolve.data.content);
+    })
+    .catch((err) => {
+      console.log(err);
+      document.getElementById("banner").innerHTML =
+        "<p>Failed to load products.</p>";
+    });
+
+  promise = axios({
+    url: `https://shop.cyberlearn.vn/api/Product/getpaging?pageIndex=${pageIndex}&pageSize=${pageSize}`,
+    method: "GET",
+  });
+  promise
+    .then((resolve) => {
+      const data = resolve.data.content;
+      console.log(data);
+
+      renderDuLieuGiay2(data.items);
+      renderPagination(data.pageIndex, data.pageSize, data.totalRow);
     })
     .catch((err) => {
       console.log(err);
@@ -164,6 +182,71 @@ function renderBannerItem(item) {
 // function goToPage(id) {
 //   return (window.location.href = `./detail.html?productid=${id}`);
 // }
+
+function renderPagination(
+  currentPage,
+  pageSize,
+  totalRow,
+  id = "pagination-container"
+) {
+  let totalPages = Math.ceil(totalRow / pageSize);
+  let content = "";
+
+  content += `<button class="page-btn" id="prev-btn">Previous</button>`;
+
+  if (currentPage <= 1) currentPage = 1;
+
+  for (let page = 1; page <= totalPages; page++) {
+    content += `
+      <button class="page-btn ${
+        page === currentPage ? "active" : ""
+      }" id="page-btn-${page}">${page}</button>
+    `;
+  }
+
+  content += `<button class="page-btn" id="next-btn">Next</button>`;
+
+  if (currentPage > totalPages) currentPage = totalPages;
+
+  document.getElementById(id).innerHTML = content;
+
+  attachPaginationEvents(currentPage, totalPages);
+}
+
+function attachPaginationEvents(currentPage, totalPages) {
+  if (currentPage >= 1) {
+    const prevButton = document.getElementById("prev-btn");
+    if (prevButton) {
+      if (currentPage === 1) prevButton.disabled = true;
+      else {
+        prevButton.addEventListener("click", () => {
+          getDuLieuGiay(currentPage - 1);
+        });
+      }
+    }
+  }
+
+  for (let page = 1; page <= totalPages; page++) {
+    let pageButton = document.getElementById(`page-btn-${page}`);
+    if (pageButton) {
+      pageButton.addEventListener("click", () => {
+        getDuLieuGiay(page);
+      });
+    }
+  }
+
+  if (currentPage <= totalPages) {
+    const nextButton = document.getElementById("next-btn");
+    if (nextButton) {
+      if (currentPage === totalPages) nextButton.disabled = true;
+      else {
+        nextButton.addEventListener("click", () => {
+          getDuLieuGiay(currentPage + 1);
+        });
+      }
+    }
+  }
+}
 
 window.onload = function () {
   const urlParams = new URLSearchParams(window.location.search);
