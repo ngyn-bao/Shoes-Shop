@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Detail</title>
+    <title>Shoes Shop</title>
     <!-- Required meta tags -->
     <meta charset="utf-8" />
     <meta
@@ -26,7 +26,17 @@
       crossorigin="anonymous"
     />
 
-    <link rel="stylesheet" href="./css/style.css" />
+    <!-- Owl Carousel -->
+    <link
+      rel="stylesheet"
+      href="./assets/css/OwlCarousel/owl.carousel.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="./assets/css/OwlCarousel/owl.theme.default.min.css"
+    />
+
+    <link rel="stylesheet" href="./assets/css/style.css" />
   </head>
 
   <body>
@@ -72,11 +82,79 @@
       </nav>
     </header>
     <!-- Header end -->
-    <div class="container">
-      <div class="row" id="baiTap3"></div>
-      <h2 class="mb-3 text-center">- Related Products -</h2>
-      <div class="row" id="baiTap4"></div>
+
+    <!-- Banner start -->
+    <section class="banner">
+      <div class="banner-content owl-carousel owl-theme" id="banner-content">
+        <!-- <div
+          class="banner-item d-flex justify-content-center align-items-center"
+        >
+          <div class="banner-img">
+            <img src="./img/image 4.png" alt="" />
+          </div>
+          <div class="banner-text">
+            <h2 class="fs-1 fw-normal">Product name</h2>
+            <p class="fw-light">Product description</p>
+            <button class="btn btn-warning py-3 px-5 text-white">
+              Buy Now
+            </button>
+          </div>
+        </div>
+
+        <div
+          class="banner-item d-flex justify-content-center align-items-center"
+        >
+          <div class="banner-img">
+            <img src="./img/image 4.png" alt="" />
+          </div>
+          <div class="banner-text">
+            <h2 class="fs-1 fw-normal">Product name</h2>
+            <p class="fw-light">Product description</p>
+            <button class="btn btn-warning py-3 px-5 text-white">
+              Buy Now
+            </button>
+          </div>
+        </div>
+        <div
+          class="banner-item d-flex justify-content-center align-items-center"
+        >
+          <div class="banner-img">
+            <img src="./img/image 4.png" alt="" />
+          </div>
+          <div class="banner-text">
+            <h2 class="fs-1 fw-normal">Product name</h2>
+            <p class="fw-light">Product description</p>
+            <button class="btn btn-warning py-3 px-5 text-white">
+              Buy Now
+            </button>
+          </div>
+        </div> -->
+      </div>
+    </section>
+    <!-- Banner end -->
+
+    <!-- Feature start -->
+    <section class="feature p-5">
+      <h2 class="text-center fs-1 fw-normal`">- Product Feature -</h2>
+      <div class="container">
+        <div class="row g-5" id="baiTap2"></div>
+      </div>
+    </section>
+    <!-- <div class="container">
+      <div class="row" id="baiTap1">
+        <div class="col-4"></div>
+      </div>
+    </div> -->
+
+    <!-- Feature end -->
+
+    <!-- Pagination start -->
+    <div class="center">
+      <div class="pagination" id="pagination-container">
+        <!-- Pagination will be rendered dynamically by JS -->
+      </div>
     </div>
+    <!-- Pagination end -->
 
     <!-- Footer start -->
     <footer class="pt-5 pb-0">
@@ -178,10 +256,52 @@
       referrerpolicy="no-referrer"
     ></script>
 
-    <!-- Cody House -->
-    <script src="/js/helpers/util.js"></script>
-    <script src="/js/helpers/main.js"></script>
+    <!-- jQuery -->
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+      integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
 
-    <script src="./js/controllers/detail.js" type="module"></script>
+    <!-- Owl Carousel -->
+    <script src="./assets/js/OwlCarousel/owl.carousel.min.js"></script>
+    <!-- <script>
+      $(".owl-carousel").owlCarousel({
+        loop: true,
+        margin: 0,
+        nav: true,
+        navText: [
+          "<img src='./img/Polygon 2.png'>",
+          "<img src='./img/Polygon 1.png'>",
+        ],
+        dots: true,
+        responsive: {
+          0: {
+            items: 1,
+          },
+          600: {
+            items: 1,
+          },
+          1000: {
+            items: 1,
+          },
+        },
+      });
+    </script> -->
+
+    <!-- Axios -->
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.7.7/axios.min.js"
+      integrity="sha512-DdX/YwF5e41Ok+AI81HI8f5/5UsoxCVT9GKYZRIzpLxb8Twz4ZwPPX+jQMwMhNQ9b5+zDEefc+dcvQoPWGNZ3g=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+
+    <!-- Cody House -->
+    <script src="./assets/js/helpers/util.js"></script>
+    <script src="./assets/js/helpers/main.js"></script>
+
+    <script src="./assets/js/controllers/index.js" type="module"></script>
   </body>
 </html>
