@@ -1,7 +1,7 @@
 <?php
 header("Content-Type: application/json");
-require_once __DIR__ . '/../config/db.php';
-require_once __DIR__ . '/../models/Product.php';
+require_once __DIR__ . '/../../config/db.php';
+require_once __DIR__ . '/../../models/product.model.php';
 
 $productModel = new Product($conn);
 $data = json_decode(file_get_contents("php://input"), true);
