@@ -1,5 +1,6 @@
 <?php
 header("Content-Type: application/json; charset=UTF-8");
+session_start();
 require_once __DIR__ . '/../../config/db.php';
 
 $data = json_decode(file_get_contents("php://input"), true);
@@ -10,12 +11,29 @@ $query = "SELECT * FROM users WHERE email = ?";
 $stmt = $conn->prepare($query);
 $stmt->bind_param("s", $email);
 $stmt->execute();
-$result = $stmt->get_result()->fetch_assoc();
+$result = $stmt->get_result();
 
-if ($result && password_verify($password, $result['password_hash'])) {
-    echo json_encode(["message" => "Login successful", "user" => $result]);
-} else {
-    http_response_code(401);
-    echo json_encode(["error" => "Invalid credentials"]);
+if ($result->num_rows === 1) {
+    $user = $result->fetch_assoc();
+    if (password_verify($password, $user['password_hash'])) {
+        $_SESSION['user_id'] = $user['user_id'];
+        $_SESSION['role'] = $user['role'];
+        
+        echo json_encode([
+            "success" => true,
+            "message" => "Đăng nhập thành công",
+            "user" => [
+                "user_id" => $user['user_id'],
+                "full_name" => $user['full_name'],
+                "role" => $user['role']
+            ]
+        ]);
+        exit;
+    }
 }
+
+echo json_encode([
+    "success" => false,
+    "message" => "Sai email hoặc mật khẩu"
+]);
 ?>
