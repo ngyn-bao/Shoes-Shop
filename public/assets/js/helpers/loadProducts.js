@@ -38,15 +38,16 @@ function renderBanner(allProducts) {
   const bannerItems = [...allProducts]
     .sort(() => 0.5 - Math.random())
     .slice(0, 3);
+  console.log(bannerItems);
   const banner = document.getElementById("banner-content");
   banner.innerHTML = bannerItems
     .map(
       (p) => `
-        <div class="banner-item d-flex justify-content-between align-items-center">
-          <div class="banner-img">
-            <img src="${p.image_url}" alt="">
+        <div class="banner-item row align-items-center">
+          <div class="banner-img col-8">
+            <img src=${p.image_url} alt="" style="width: 80%;">
           </div>
-          <div class="banner-text">
+          <div class="banner-text col-4">
             <h2 class="fs-1 fw-normal text-uppercase">${p.product_name}</h2>
             <p class="fw-light">${(p.description || "").substring(
               0,
@@ -70,8 +71,8 @@ function renderBanner(allProducts) {
     margin: 0,
     nav: true,
     navText: [
-      "<img src='./img/Polygon 2.png'>",
-      "<img src='./img/Polygon 1.png'>",
+      "<img src='./img/Polygon2.png'>",
+      "<img src='./img/Polygon1.png'>",
     ],
     dots: true,
     responsive: {
@@ -96,7 +97,7 @@ function renderProducts(products) {
       (p) => `
         <div class="col-md-4">
           <div class="card shadow-sm">
-            <img src="${p.image_url}" class="card-img-top" alt="${
+            <img src=${p.image_url} class="card-img-top" alt="${
         p.product_name
       }">
             <div class="card-body text-center">
@@ -119,6 +120,7 @@ function renderProducts(products) {
       `,
     )
     .join("");
+  console.log(products);
 }
 
 // --- Render phân trang (theo server data) ---

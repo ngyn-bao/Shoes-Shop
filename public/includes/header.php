@@ -6,7 +6,7 @@
             class="navbar-content d-flex justify-content-between align-items-center"
           >
             <div class="nav-left">
-              <a href="./index.html"
+              <a href="./products.php"
                 ><img
                   class=""
                   src="./img/c255c800e61e47ec7698ffdc99e50a95.png"
