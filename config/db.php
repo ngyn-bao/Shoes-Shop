@@ -10,7 +10,7 @@ $dotenv->load();
 // Lấy giá trị từ .env
 $host = $_ENV['DB_HOST'];
 $dbname = $_ENV['DB_NAME'];
-$port = $_ENV['DB_PORT'] ?? 3306;
+$port = $_ENV['DB_PORT'] ?? 3307;
 $username = $_ENV['DB_USER'];
 $password = $_ENV['DB_PASS'];
 $charset = $_ENV['DB_CHARSET'] ?? 'utf8mb4';
