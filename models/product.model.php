@@ -8,78 +8,73 @@ class Product {
         $this->conn = $db;
     }
 
-   public function getAll($page = null, $limit = null) {
-        // Base query
+    // ==========================
+    // GET ALL PRODUCTS (with optional pagination)
+    // ==========================
+    public function getAll($page = null, $limit = null) {
+
+        $offset = ($page && $limit) ? ($page - 1) * $limit : 0;
+
         $query = "
-            SELECT 
-                p.*,
-                COALESCE(pi.image_url, './img/default.jpg') AS image_url
+            SELECT p.*, pi.image_url
             FROM products p
             LEFT JOIN product_images pi 
                 ON p.product_id = pi.product_id AND pi.is_main = 1
-            ORDER BY p.created_at DESC
         ";
 
-        // Nếu có phân trang
-        if ($page !== null && $limit !== null) {
-            $offset = ($page - 1) * $limit;
+        if ($page && $limit) {
             $query .= " LIMIT $limit OFFSET $offset";
         }
 
         $result = mysqli_query($this->conn, $query);
 
-        if (!$result) {
-            throw new Exception("Database query failed: " . mysqli_error($this->conn));
-        }
-
         $data = [];
         while ($row = mysqli_fetch_assoc($result)) {
+
+            // image_url là link online → giữ nguyên
             $data[] = $row;
         }
-
-        // Nếu có phân trang, trả thêm tổng số dòng để tính tổng trang
-        if ($page !== null && $limit !== null) {
-            $countQuery = "SELECT COUNT(*) AS total FROM products";
-            $countResult = mysqli_query($this->conn, $countQuery);
-            $total = mysqli_fetch_assoc($countResult)['total'];
-
-            return [
-                "data" => $data,
-                "pagination" => [
-                    "page" => (int)$page,
-                    "limit" => (int)$limit,
-                    "total" => (int)$total,
-                    "total_pages" => ceil($total / $limit)
-                ]
-            ];
-        }
-
-        // Nếu không có phân trang → chỉ trả danh sách sản phẩm
         return $data;
     }
 
 
+
+    // ==========================
+    // GET BY ID
+    // ==========================
     public function getById($id) {
         $query = "
             SELECT 
                 p.*,
-                COALESCE(pi.image_url, './img/default.jpg') AS image_url
+                pi.image_url AS image_main
             FROM products p
             LEFT JOIN product_images pi 
                 ON p.product_id = pi.product_id AND pi.is_main = 1
             WHERE p.product_id = ?
         ";
+
         $stmt = $this->conn->prepare($query);
-        $stmt->bind_param('i', $id);
+        $stmt->bind_param("i", $id);
         $stmt->execute();
         $product = $stmt->get_result()->fetch_assoc();
 
         if ($product) {
-            $product['images'] = $this->getImages($id);
+            // ảnh chính giữ nguyên (online URL)
+
+            // load tất cả ảnh phụ
+            $images = $this->getImages($id);
+
+            // giữ nguyên image_url vì là link online
+            $product['images'] = $images;
         }
 
         return $product;
     }
+
+
+    // ==========================
+    // CRUD
+    // ==========================
     public function create($data) {
         $query = "INSERT INTO products (product_name, category_id, brand_id, price, discount, description, stock) 
                   VALUES (?, ?, ?, ?, ?, ?, ?)";
@@ -135,6 +130,11 @@ class Product {
         $stmt->bind_param("i", $id);
         return $stmt->execute();
     }
+
+
+    // ==========================
+    // IMAGES
+    // ==========================
     public function getImages($product_id) {
         $query = "SELECT * FROM product_images WHERE product_id = ?";
         $stmt = $this->conn->prepare($query);
@@ -143,14 +143,12 @@ class Product {
         return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
     }
 
-
     public function addImage($product_id, $image_url, $is_main = 0) {
         $query = "INSERT INTO product_images (product_id, image_url, is_main) VALUES (?, ?, ?)";
         $stmt = $this->conn->prepare($query);
         $stmt->bind_param("isi", $product_id, $image_url, $is_main);
         return $stmt->execute();
     }
-
 
     public function deleteImage($image_id) {
         $query = "DELETE FROM product_images WHERE image_id = ?";
