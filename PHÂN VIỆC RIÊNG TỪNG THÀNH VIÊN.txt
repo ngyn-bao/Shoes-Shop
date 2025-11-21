@@ -1,0 +1,74 @@
+👤 PHÂN VIỆC RIÊNG TỪNG THÀNH VIÊN
+🧱 #1 – Trang chủ & Liên hệ
+
+Frontend:
+
+Trang Home (index.php): hiển thị banner, sản phẩm nổi bật, thông tin cửa hàng
+
+Trang Liên hệ (contact.php): form gửi liên hệ (họ tên, email, nội dung)
+
+Admin:
+
+Quản lý nội dung trang home/contact (bảng site_content)
+
+API: getPageContent.php, updatePageContent.php
+
+Quản lý liên hệ (bảng contacts)
+
+API: getAllContacts.php, updateContactStatus.php, deleteContact.php
+
+🧱 #2 – Trang Giới thiệu & Hỏi đáp
+
+Frontend:
+
+Trang About (about.php) — nội dung giới thiệu cửa hàng
+
+Trang FAQ (faq.php) — danh sách câu hỏi thường gặp
+
+Admin:
+
+Quản lý trang giới thiệu (site_content)
+
+API: getPageContent.php, updatePageContent.php
+
+Quản lý câu hỏi/đáp (faq)
+
+API: getAllFAQ.php, createFAQ.php, updateFAQ.php, deleteFAQ.php
+
+🧱 #3 – Sản phẩm, Giỏ hàng, Đơn hàng
+
+Frontend:
+
+Trang Danh sách sản phẩm (products.php) — có tìm kiếm theo từ khóa
+
+Trang Chi tiết sản phẩm (product_detail.php)
+
+Trang Giỏ hàng (cart.php)
+
+Admin:
+
+Quản lý sản phẩm (products)
+
+API: getAllProducts.php, getProduct.php, createProduct.php, updateProduct.php, deleteProduct.php
+
+Quản lý đơn hàng (orders, order_details)
+
+API: getAllOrders.php, getOrderDetail.php, updateOrderStatus.php, cancelOrder.php
+
+🧱 #4 – Bài viết / Tin tức
+
+Frontend:
+
+Trang Danh sách bài viết (articles.php) – có tìm kiếm
+
+Trang Chi tiết bài viết (article_detail.php)
+
+Admin:
+
+Quản lý tin tức (articles)
+
+API: getAllArticles.php, getArticle.php, createArticle.php, updateArticle.php, deleteArticle.php
+
+Quản lý bình luận (comments)
+
+API: getCommentsByArticle.php, addComment.php, deleteComment.php
