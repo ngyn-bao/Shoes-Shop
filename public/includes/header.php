@@ -29,7 +29,7 @@
         <div class="container">
           <ul class="d-flex align-items-center gap-4">
             <li class="nav-item">
-              <a href="./index.html" class="nav-link active">Home</a>
+              <a href="./products.php" class="nav-link active">Home</a>
             </li>
             <li class="nav-item"><a href="" class="nav-link">Men</a></li>
             <li class="nav-item"><a href="" class="nav-link">Women</a></li>
