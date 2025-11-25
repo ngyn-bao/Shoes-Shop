@@ -1,6 +1,6 @@
 <?php
 header('Content-Type: application/json');
-require '../includes/db.php';
+require '../../config/db.php';
 
 $name = trim($_POST['name'] ?? '');
 $content = trim($_POST['content'] ?? '');
