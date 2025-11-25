@@ -1,9 +1,9 @@
 <?php return array(
     'root' => array(
         'name' => '__root__',
-        'pretty_version' => 'dev-Bao',
-        'version' => 'dev-Bao',
-        'reference' => '99ab7860430a2e4762d7db32029ff668cbf62c83',
+        'pretty_version' => 'dev-Hao',
+        'version' => 'dev-Hao',
+        'reference' => 'c166ceb89ddfba847aa07ed84d187ee6458bc231',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -11,9 +11,9 @@
     ),
     'versions' => array(
         '__root__' => array(
-            'pretty_version' => 'dev-Bao',
-            'version' => 'dev-Bao',
-            'reference' => '99ab7860430a2e4762d7db32029ff668cbf62c83',
+            'pretty_version' => 'dev-Hao',
+            'version' => 'dev-Hao',
+            'reference' => 'c166ceb89ddfba847aa07ed84d187ee6458bc231',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

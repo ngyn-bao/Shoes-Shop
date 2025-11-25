@@ -70,8 +70,7 @@ async function updateStatus(id, status) {
 }
 
 function viewOrder(id) {
-    alert(`Sắp mở chi tiết đơn hàng #${id}`);
-    // window.open(`order-detail.html?id=${id}`, '_blank');
+    window.location.href = `order-detail.html?id=${id}`;
 }
 
 loadOrders(); // chạy ngay khi mở trang
