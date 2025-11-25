@@ -3,7 +3,7 @@
         'name' => '__root__',
         'pretty_version' => 'dev-Hao',
         'version' => 'dev-Hao',
-        'reference' => 'c166ceb89ddfba847aa07ed84d187ee6458bc231',
+        'reference' => '6b38d87e4dc446193d4235f8d7c92080f70dea40',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -13,7 +13,7 @@
         '__root__' => array(
             'pretty_version' => 'dev-Hao',
             'version' => 'dev-Hao',
-            'reference' => 'c166ceb89ddfba847aa07ed84d187ee6458bc231',
+            'reference' => '6b38d87e4dc446193d4235f8d7c92080f70dea40',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

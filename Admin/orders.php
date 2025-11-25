@@ -1,5 +1,63 @@
-// js/orders.js – ĐÃ BỎ CỘT KHÁCH HÀNG – SIÊU GỌN, SIÊU NHANH
-const api = '/Shoes-Shop/api/Order/';
+<?php
+// orders.php
+$api = '/Shoes-Shop/api/Order/';
+?>
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản lý đơn hàng - Shoes Shop Admin</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <style>
+        body { background: #f8f9fa; font-family: 'Segoe UI', sans-serif; }
+        .page-title { color: #2c3e50; font-weight: 600; margin-bottom: 1.5rem; }
+        .table th, .table td { vertical-align: middle; }
+        .col-id { width: 10%; text-align: center; }
+        .col-total { width: 18%; text-align: right; }
+        .col-date { width: 18%; text-align: center; }
+        .col-status { width: 24%; text-align: center; }
+        .col-action { width: 30%; text-align: center; }
+        .status-pending    { background:#ffc107; color:#000; }
+        .status-processing { background:#0d6efd; color:#fff; }
+        .status-shipped    { background:#198754; color:#fff; }
+        .status-delivered  { background:#28a745; color:#fff; }
+        .status-cancelled  { background:#dc3545; color:#fff; }
+        .empty-state { text-align: center; padding: 70px 20px; color: #6c757d; }
+        .empty-state i { font-size: 4rem; opacity: 0.5; }
+    </style>
+</head>
+<body class="p-4">
+<div class="container-fluid">
+    <h2 class="page-title mb-4">Quản lý đơn hàng</h2>
+    <div class="card shadow-sm border-0">
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0" id="ordersTable">
+                    <thead class="table-primary text-dark">
+                        <tr>
+                            <th class="col-id">Mã đơn</th>
+                            <th class="col-total">Tổng tiền</th>
+                            <th class="col-date">Ngày đặt</th>
+                            <th class="col-status">Trạng thái</th>
+                            <th class="col-action">Hành động</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+                <div class="empty-state d-none" id="emptyState">
+                    <i class="bi bi-cart-x"></i>
+                    <h4 class="mt-3">Chưa có đơn hàng nào</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+const api = '<?= $api ?>';
 
 async function loadOrders() {
     try {
@@ -66,11 +124,14 @@ async function updateStatus(id, status) {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ order_id: id, status: status })
     });
-    loadOrders(); // reload để thấy thay đổi ngay
+    loadOrders();
 }
 
 function viewOrder(id) {
-    window.location.href = `order-detail.html?id=${id}`;
+    window.location.href = `order-detail.php?id=${id}`;
 }
 
-loadOrders(); // chạy ngay khi mở trang
+loadOrders();
+</script>
+</body>
+</html>

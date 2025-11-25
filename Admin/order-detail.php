@@ -17,7 +17,7 @@
         <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
             <h4 class="mb-0">Chi tiết đơn hàng <span id="orderIdDisplay">#</span></h4>
             <div>
-                <a href="orders.html" class="btn btn-light btn-sm">Quay lại</a>
+                <a href="orders.php" class="btn btn-light btn-sm">Quay lại</a>
             </div>
         </div>
         <div class="card-body" id="content">
