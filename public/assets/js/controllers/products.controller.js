@@ -56,7 +56,7 @@ function renderBanner(allProducts) {
             <button onclick="location.href='product_detail.php?id=${
               p.product_id
             }'" 
-                    class="btn btn-warning py-3 px-5 text-white">
+                    class="btn btn-dark py-3 px-5 text-white">
               Buy Now
             </button>
           </div>
@@ -111,8 +111,8 @@ function renderProducts(products) {
               ).toLocaleString()} VND</p>
               <a href="product_detail.php?id=${
                 p.product_id
-              }" class="btn btn-warning text-white">
-                Xem chi tiết
+              }" class="btn btn-dark text-white">
+                View Detail
               </a>
             </div>
           </div>

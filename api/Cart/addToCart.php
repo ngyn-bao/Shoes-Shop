@@ -18,7 +18,8 @@ $cart = new Cart($conn);
 $result = $cart->addToCart($user_id, $product_id, $size, $quantity);
 
 echo json_encode([
-    "success" => $result,
+    "success" => $result ? true : false,
+    "cart_item_id" => $result,
     "message" => $result ? "Thêm sản phẩm vào giỏ hàng thành công" : "Lỗi khi thêm vào giỏ hàng"
 ]);
 ?>

@@ -14,7 +14,7 @@
               /></a>
             </div>
             <div class="nav-right d-flex gap-3 align-items-center">
-              <a href="#"
+              <a href="./cart.php"
                 ><i class="fa-solid fa-cart-shopping text-white"></i
               ></a>
               <span><a href="#" class="text-white">Login</a></span>
