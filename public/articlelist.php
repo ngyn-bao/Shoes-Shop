@@ -1,5 +1,5 @@
 <?php
-require_once '../config/db.php'; 
+require_once '../config/db.php';
 $sql = "SELECT id, title, image, excerpt, created_at FROM articles ORDER BY created_at DESC";
 $result = mysqli_query($conn, $sql);
 
@@ -15,6 +15,7 @@ while ($row = mysqli_fetch_assoc($result)) {
 
 <!DOCTYPE html>
 <html lang="vi">
+
 <head>
     <meta charset="UTF-8">
     <title>Tin tức & Bài viết - Shoes Shop</title>
@@ -23,6 +24,7 @@ while ($row = mysqli_fetch_assoc($result)) {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="./assets/css/style.css" />
 </head>
+
 <body>
     <?php include './includes/header.php'; ?>
 
@@ -41,7 +43,7 @@ while ($row = mysqli_fetch_assoc($result)) {
                         <i class="fas fa-search text-muted"></i>
                     </span>
                     <input type="text" id="searchInput" class="form-control border-start-0"
-                           placeholder="Tìm kiếm bài viết..." autocomplete="off">
+                        placeholder="Tìm kiếm bài viết..." autocomplete="off">
                 </div>
             </div>
         </div>
@@ -50,13 +52,11 @@ while ($row = mysqli_fetch_assoc($result)) {
     <main class="container my-5">
         <div class="row g-4" id="postsContainer">
             <?php foreach ($posts as $post): ?>
-                <div class="col-md-4 post-card"
-                     data-title="<?= strtolower(htmlspecialchars($post['title'])) ?>"
-                     data-excerpt="<?= strtolower(htmlspecialchars($post['excerpt'])) ?>">
+                <div class="col-md-4 post-card" data-title="<?= strtolower(htmlspecialchars($post['title'])) ?>"
+                    data-excerpt="<?= strtolower(htmlspecialchars($post['excerpt'])) ?>">
                     <div class="card h-100 shadow-sm">
-                        <img src="<?= htmlspecialchars($post['image'] ?: './images/placeholder.jpg') ?>"
-                             class="card-img-top" alt="<?= htmlspecialchars($post['title']) ?>"
-                             style="height: 200px; object-fit: cover;">
+                        <img src="../public/<?= htmlspecialchars($post['image']) ?>" class="card-img-top"
+                            style="height:200px; object-fit:cover;" onerror="this.src='../public/img/no-image.jpg'">
                         <div class="card-body d-flex flex-column">
                             <h5 class="card-title"><?= htmlspecialchars($post['title']) ?></h5>
                             <p class="card-text text-muted flex-grow-1">
@@ -67,7 +67,7 @@ while ($row = mysqli_fetch_assoc($result)) {
                                     <?= date('d/m/Y', strtotime($post['created_at'])) ?>
                                 </small>
                                 <a href="articledetail.php?id=<?= $post['id'] ?>"
-                                   class="btn btn-dark btn-sm d-block mt-2">Đọc tiếp</a>
+                                    class="btn btn-dark btn-sm d-block mt-2">Đọc tiếp</a>
                             </div>
                         </div>
                     </div>
@@ -85,6 +85,6 @@ while ($row = mysqli_fetch_assoc($result)) {
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-    <script src="assets/js/controller/articlelist.js"></script>
 </body>
+
 </html>

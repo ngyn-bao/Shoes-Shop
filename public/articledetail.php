@@ -1,7 +1,6 @@
 <?php
-require_once '../config/db.php'; 
+require_once '../config/db.php';
 
-// Lấy ID từ URL và ép kiểu số nguyên
 $id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
 
 if ($id <= 0) {
@@ -11,11 +10,6 @@ if ($id <= 0) {
 
 $sql_article = "SELECT * FROM articles WHERE id = $id LIMIT 1";
 $result_article = mysqli_query($conn, $sql_article);
-
-if (!$result_article) {
-    die("Lỗi truy vấn bài viết: " . mysqli_error($conn));
-}
-
 $article = mysqli_fetch_assoc($result_article);
 
 if (!$article) {
@@ -25,18 +19,10 @@ if (!$article) {
 
 $sql_comments = "SELECT * FROM comments WHERE article_id = $id AND is_approved = 1 ORDER BY created_at DESC";
 $result_comments = mysqli_query($conn, $sql_comments);
-
-if (!$result_comments) {
-    die("Lỗi truy vấn bình luận: " . mysqli_error($conn));
-}
-
 $comments = [];
 while ($row = mysqli_fetch_assoc($result_comments)) {
     $comments[] = $row;
 }
-
-mysqli_free_result($result_article);
-mysqli_free_result($result_comments);
 ?>
 
 <!DOCTYPE html>
@@ -55,32 +41,33 @@ mysqli_free_result($result_comments);
     <div class="container my-5">
         <div class="row">
             <div class="col-lg-8 mx-auto">
-                <!-- Article -->
                 <article class="bg-white shadow rounded p-4 p-md-5">
                     <h1 class="display-5 fw-bold mb-4"><?= htmlspecialchars($article['title']) ?></h1>
-                    
+
+                    <!-- SỬA 1: DÙNG $article, KHÔNG DÙNG $post -->
                     <?php if ($article['image']): ?>
-                        <img src="<?= htmlspecialchars($article['image']) ?>"
-                             class="img-fluid rounded mb-4" alt="<?= htmlspecialchars($article['title']) ?>">
+                        <img src="../public/<?= htmlspecialchars($article['image']) ?>" 
+                             class="img-fluid rounded mb-4" 
+                             style="max-height:500px; width:100%; object-fit:cover;"
+                             onerror="this.src='../public/img/no-image.jpg'"
+                             alt="<?= htmlspecialchars($article['title']) ?>">
                     <?php endif; ?>
 
                     <div class="text-muted mb-4">
-                        <small>
-                            <i class="far fa-calendar"></i>
-                            <?= date('d/m/Y H:i', strtotime($article['created_at'])) ?>
-                        </small>
+                        <small><i class="far fa-calendar"></i> <?= date('d/m/Y H:i', strtotime($article['created_at'])) ?></small>
                     </div>
 
+                    <!-- SỬA 2: DÙNG htmlspecialchars_decode ĐỂ HIỆN THẺ HTML -->
                     <div class="content lh-lg">
-                        <?= nl2br(htmlspecialchars($article['content'])) ?>
+                        <?= htmlspecialchars_decode($article['content']) ?>
+                        <!-- Nếu muốn xuống dòng bình thường cũng giữ thì dùng dòng dưới -->
+                        <!-- <?= nl2br(htmlspecialchars_decode($article['content'])) ?> -->
                     </div>
                 </article>
 
-                <!-- Comments Section -->
+                <!-- Phần bình luận giữ nguyên -->
                 <section class="mt-5 bg-white shadow rounded p-4">
                     <h3 class="mb-4">Bình luận (<?= count($comments) ?>)</h3>
-
-                    <!-- Add Comment Form -->
                     <form id="commentForm" class="mb-5">
                         <input type="hidden" name="article_id" value="<?= $id ?>">
                         <div class="mb-3">
@@ -92,14 +79,11 @@ mysqli_free_result($result_comments);
                         <button type="submit" class="btn btn-primary">Gửi bình luận</button>
                     </form>
 
-                    <!-- Comments List -->
                     <div id="commentsList">
                         <?php foreach ($comments as $c): ?>
                             <div class="border-bottom pb-3 mb-3">
                                 <strong><?= htmlspecialchars($c['name']) ?></strong>
-                                <small class="text-muted ms-2">
-                                    <?= date('d/m/Y H:i', strtotime($c['created_at'])) ?>
-                                </small>
+                                <small class="text-muted ms-2"><?= date('d/m/Y H:i', strtotime($c['created_at'])) ?></small>
                                 <p class="mt-2 mb-0"><?= nl2br(htmlspecialchars($c['content'])) ?></p>
                             </div>
                         <?php endforeach; ?>
@@ -113,22 +97,18 @@ mysqli_free_result($result_comments);
 
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script>
-        $('#commentForm').on('submit', function(e) {
+        $('#commentForm').on('submit', function (e) {
             e.preventDefault();
             const formData = new FormData(this);
-
             $.ajax({
                 url: 'api/addComment.php',
                 method: 'POST',
                 data: formData,
                 processData: false,
                 contentType: false,
-                success: function(res) {
-                    if (res.success) {
-                        location.reload(); 
-                    } else {
-                        alert(res.message || 'Lỗi khi gửi bình luận');
-                    }
+                success: function (res) {
+                    if (res.success) location.reload();
+                    else alert(res.message || 'Lỗi khi gửi bình luận');
                 },
                 error: () => alert('Lỗi kết nối')
             });
