@@ -19,4 +19,3 @@ echo json_encode([
     "success" => $result,
     "message" => $result ? "Cập nhật giỏ hàng thành công" : "Lỗi khi cập nhật"
 ]);
-?>

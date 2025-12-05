@@ -56,4 +56,3 @@ if ($stmt->execute()) {
 } else {
     echo json_encode(["success" => false, "message" => "Lỗi khi tạo tài khoản"]);
 }
-?>

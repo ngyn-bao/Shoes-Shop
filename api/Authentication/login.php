@@ -39,4 +39,3 @@ echo json_encode([
     "success" => false,
     "message" => "Sai email hoặc mật khẩu"
 ]);
-?>

@@ -1,40 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <title>Detail</title>
-    <meta charset="utf-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, shrink-to-fit=no"
-    />
-    <link rel="icon" type="image/x-icon" href="./img/favicon.ico">
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
-    />
 
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-    />
+<head>
+  <title>Detail</title>
+  <meta charset="utf-8" />
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <link rel="icon" type="image/x-icon" href="./img/favicon.ico">
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
 
-    <link rel="stylesheet" href="./assets/css/style.css" />
-  </head>
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+    rel="stylesheet" />
 
-  <body>
-    <?php include './includes/header.php'; ?>
+  <link rel="stylesheet" href="./assets/css/style.css" />
+</head>
 
-    <div class="container py-5">
-      <div class="row" id="product-detail"></div>
+<body>
+  <?php include './includes/header.php'; ?>
 
-      <h2 class="mb-3 text-center mt-5">- Related Products -</h2>
-      <div class="row" id="related-products"></div>
-    </div>
+  <div class="container py-5">
+    <div class="row" id="product-detail"></div>
 
-    <?php include './includes/footer.php'; ?>
+    <h2 class="mb-3 text-center mt-5">- Related Products -</h2>
+    <div class="row" id="related-products"></div>
+  </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.7.7/axios.min.js"></script>
+  <?php include './includes/footer.php'; ?>
 
-    <script src="./assets/js/controllers/detail.controller.js"></script>
-  </body>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.7.7/axios.min.js"></script>
+
+  <script src="./assets/js/controllers/detail.controller.js"></script>
+</body>
+
 </html>

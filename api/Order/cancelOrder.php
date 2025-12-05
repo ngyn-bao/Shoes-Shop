@@ -19,4 +19,3 @@ if ($result) {
 } else {
     echo json_encode(["success" => false, "message" => "Không thể hủy (đơn đã xử lý hoặc không tồn tại)"]);
 }
-?>

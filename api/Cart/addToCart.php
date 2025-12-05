@@ -22,4 +22,3 @@ echo json_encode([
     "cart_item_id" => $result,
     "message" => $result ? "Thêm sản phẩm vào giỏ hàng thành công" : "Lỗi khi thêm vào giỏ hàng"
 ]);
-?>
