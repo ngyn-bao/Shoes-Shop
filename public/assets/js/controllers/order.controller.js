@@ -35,25 +35,43 @@ renderOrder();
 
 // --- Handle Order Submit ---
 document.getElementById("btnOrder").addEventListener("click", async () => {
+  const user = JSON.parse(localStorage.getItem("user")); // Lấy user login
+
+  if (!user) {
+    alert("Bạn cần đăng nhập để đặt hàng!");
+    return;
+  }
+
   const data = {
-    customer_name: fullName.value,
-    email: email.value,
-    phone: phone.value,
-    address: address.value,
-    note: note.value,
-    payment: paymentMethod.value,
-    items: cart,
+    user_id: user.user_id, // >>>> FIX QUAN TRỌNG
+    shipping_address: address.value,
+    payment_method: paymentMethod.value,
+
+    // FIX items: chỉ gửi đúng field API yêu cầu
+    items: cart.map((x) => ({
+      product_id: x.product_id,
+      size: x.size,
+      quantity: x.quantity,
+      price: x.price,
+    })),
   };
 
   try {
-    const res = await axios.post("../api/Order/createOrder.php", data);
+    const res = await axios.post(
+      "../api/Order/createOrder.php",
+      data,
+      { headers: { "Content-Type": "application/json" } }, // >>> FIX JSON
+    );
 
     if (res.data.success) {
       alert("Order Success!");
       localStorage.removeItem("cart");
-      window.location.href = "./index.html";
+      window.location.href = "./products.php";
+    } else {
+      alert("Order failed: " + res.data.message);
     }
   } catch (err) {
+    console.log(err);
     alert("Order failed!");
   }
 });

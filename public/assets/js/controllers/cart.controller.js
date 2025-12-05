@@ -4,7 +4,7 @@ let cart = [];
 
 async function loadCart() {
   try {
-    const res = await axios.get("../api/Cart/getCart.php?user_id=3");
+    const res = await axios.get("../api/Cart/getCart.php");
     if (res.data.success) {
       cart = res.data.cart;
       localStorage.setItem("cart", JSON.stringify(cart));

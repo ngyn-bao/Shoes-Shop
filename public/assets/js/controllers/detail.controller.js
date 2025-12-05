@@ -57,6 +57,9 @@ async function addToCart() {
     const qty = Number(document.getElementById("qty").value);
 
     // Fetch lại thông tin sản phẩm để lưu localStorage
+    const user = JSON.parse(localStorage.getItem("user") || "{}");
+    const user_id = user.user_id;
+
     const resProduct = await axios.get(
       `../api/Product/getProductById.php?id=${productId}`,
     );
@@ -66,7 +69,7 @@ async function addToCart() {
     const resCart = await axios.post(
       "../api/Cart/addToCart.php",
       {
-        user_id: 3,
+        user_id: user_id,
         product_id: productId,
         size: size,
         quantity: qty,
