@@ -72,56 +72,51 @@
   }
   ?>
 
-  <section>
-    <h2 class="text-center fs-1 fw-normal">- Articles & News -</h2>
-
-    <!-- Search Bar -->
+  <!-- Search Bar -->
     <section class="container my-4">
-      <div class="row justify-content-center">
-        <div class="col-lg-6 col-md-8">
-          <div class="input-group">
-            <span class="input-group-text bg-white border-end-0">
-              <i class="fas fa-search text-muted"></i>
-            </span>
-            <input type="text" id="searchInput" class="form-control border-start-0" placeholder="Tìm kiếm bài viết..."
-              autocomplete="off">
-          </div>
+        <div class="row justify-content-center">
+            <div class="col-lg-6 col-md-8">
+                <div class="input-group">
+                    <span class="input-group-text bg-white border-end-0">
+                        <i class="fas fa-search text-muted"></i>
+                    </span>
+                    <input type="text" id="searchPostInput" class="form-control border-start-0"
+                        placeholder="Tìm kiếm bài viết..." autocomplete="off">
+                </div>
+            </div>
         </div>
-      </div>
     </section>
 
     <main class="container my-5">
-      <div class="row g-4" id="postsContainer">
-        <?php foreach ($posts as $post): ?>
-          <div class="col-md-4 post-card" data-title="<?= strtolower(htmlspecialchars($post['title'])) ?>"
-            data-excerpt="<?= strtolower(htmlspecialchars($post['excerpt'])) ?>">
-            <div class="card h-100 shadow-sm">
-              <img src="../public/<?= htmlspecialchars($post['image']) ?>" class="card-img-top"
-                style="height:200px; object-fit:cover;" onerror="this.src='../public/img/no-image.jpg'">
-              <div class="card-body d-flex flex-column">
-                <h5 class="card-title"><?= htmlspecialchars($post['title']) ?></h5>
-                <p class="card-text text-muted flex-grow-1">
-                  <?= htmlspecialchars($post['excerpt'] ?: 'Xem chi tiết...') ?>
-                </p>
-                <div class="mt-auto">
-                  <small class="text-muted">
-                    <?= date('d/m/Y', strtotime($post['created_at'])) ?>
-                  </small>
-                  <a href="articledetail.php?id=<?= $post['id'] ?>" class="btn btn-dark btn-sm d-block mt-2">Đọc tiếp</a>
+        <div class="row g-4" id="postsContainer">
+            <?php foreach ($posts as $post): ?>
+                <div class="col-md-4 post-card" data-title="<?= strtolower(htmlspecialchars($post['title'])) ?>"
+                    data-excerpt="<?= strtolower(htmlspecialchars($post['excerpt'])) ?>">
+                    <div class="card h-100 shadow-sm">
+                        <img src="../public/<?= htmlspecialchars($post['image']) ?>" class="card-img-top"
+                            style="height:200px; object-fit:cover;" onerror="this.src='../public/img/no-image.jpg'">
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="card-title"><?= htmlspecialchars($post['title']) ?></h5>
+                            <p class="card-text text-muted flex-grow-1">
+                                <?= htmlspecialchars($post['excerpt'] ?: 'Xem chi tiết...') ?>
+                            </p>
+                            <div class="mt-auto">
+                                <small class="text-muted">
+                                    <?= date('d/m/Y', strtotime($post['created_at'])) ?>
+                                </small>
+                                <a href="articledetail.php?id=<?= $post['id'] ?>"
+                                    class="btn btn-dark btn-sm d-block mt-2">Đọc tiếp</a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-              </div>
-            </div>
-          </div>
-        <?php endforeach; ?>
-      </div>
+            <?php endforeach; ?>
+        </div>
 
-      <div id="noResults" class="text-center mt-5 d-none">
-        <p class="text-muted fs-4">Không tìm thấy bài viết nào.</p>
-      </div>
+        <div id="noResults" class="text-center mt-5 d-none">
+            <p class="text-muted fs-4">Không tìm thấy bài viết nào.</p>
+        </div>
     </main>
-
-    </main>
-  </section>
 
   <?php include './includes/footer.php'; ?>
 
@@ -141,6 +136,32 @@
   <script src="./assets/js/controllers/products.controller.js">
 
   </script>
+  <script>
+        $(document).ready(function() {
+            $("#searchPostInput").on("keyup", function() {
+                var value = $(this).val().toLowerCase().trim();
+                var hasResult = false;
+
+                $(".post-card").each(function() {
+                    var title = $(this).data("title"); 
+                    var excerpt = $(this).data("excerpt");
+
+                    if (title.indexOf(value) > -1 || excerpt.indexOf(value) > -1) {
+                        $(this).show(); 
+                        hasResult = true;
+                    } else {
+                        $(this).hide(); 
+                    }
+                });
+
+                if (!hasResult) {
+                    $("#noResults").removeClass("d-none");
+                } else {
+                    $("#noResults").addClass("d-none");
+                }
+            });
+        });
+    </script>
 </body>
 
 </html>

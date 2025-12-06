@@ -80,11 +80,39 @@ while ($row = mysqli_fetch_assoc($result)) {
         </div>
     </main>
 
+    
     <?php include './includes/footer.php'; ?>
 
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $("#searchInput").on("keyup", function() {
+                var value = $(this).val().toLowerCase().trim();
+                var hasResult = false;
+
+                $(".post-card").each(function() {
+                    var title = $(this).data("title"); 
+                    var excerpt = $(this).data("excerpt");
+
+                    if (title.indexOf(value) > -1 || excerpt.indexOf(value) > -1) {
+                        $(this).show(); 
+                        hasResult = true;
+                    } else {
+                        $(this).hide(); 
+                    }
+                });
+
+                if (!hasResult) {
+                    $("#noResults").removeClass("d-none");
+                } else {
+                    $("#noResults").addClass("d-none");
+                }
+            });
+        });
+    </script>
+    </body>
 </body>
 
 </html>
