@@ -1,0 +1,30 @@
+header {
+  .main-nav {
+    padding: 20px 0;
+    // margin-bottom: 10px;
+    .nav-left {
+      img {
+        width: 15%;
+      }
+    }
+    .nav-right {
+      font-size: 18px;
+    }
+  }
+}
+
+.secondary-nav {
+  font-size: 20px;
+  color: #5d5d5d;
+  .nav-item {
+    margin: 20px 0;
+    .nav-link:hover {
+      color: #2a2a2a;
+    }
+
+    .nav-link.active {
+      color: black;
+      border-bottom: 2px solid black;
+    }
+  }
+}

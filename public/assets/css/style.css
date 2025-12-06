@@ -1,0 +1,221 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+*:focus {
+  border: transparent;
+}
+
+*:focus-visible {
+  outline: none;
+}
+
+a {
+  text-decoration: none;
+  color: #5d5d5d;
+}
+
+ul {
+  list-style: none;
+}
+
+header .main-nav {
+  padding: 20px 0;
+}
+header .main-nav .nav-left img {
+  width: 15%;
+}
+header .main-nav .nav-right {
+  font-size: 18px;
+}
+
+.secondary-nav {
+  font-size: 20px;
+  color: #5d5d5d;
+}
+.secondary-nav .nav-item {
+  margin: 20px 0;
+}
+.secondary-nav .nav-item .nav-link:hover {
+  color: #2a2a2a;
+}
+.secondary-nav .nav-item .nav-link.active {
+  color: black;
+  border-bottom: 2px solid black;
+}
+
+.banner {
+  width: 100%;
+  padding: 50px 0;
+}
+.banner .banner-content .banner-item {
+  position: relative;
+  font-size: 30px;
+  padding: 0 50px 50px;
+  background-image: url(../../img/image6.png);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: bottom;
+}
+.banner .banner-content .owl-nav {
+  position: absolute;
+  top: 30%;
+  left: 0;
+  right: 0;
+}
+.banner .banner-content .owl-nav .owl-prev,
+.banner .banner-content .owl-nav .owl-next {
+  position: absolute;
+  border: none;
+  height: 100px;
+  color: inherit;
+  background: none;
+}
+.banner .banner-content .owl-nav .owl-prev {
+  left: 0;
+}
+.banner .banner-content .owl-nav .owl-next {
+  right: 0;
+}
+
+footer {
+  padding-left: 0;
+  padding-right: 0;
+}
+footer .footer-content .footer-item {
+  border-right: 2px solid gray;
+}
+footer .top-footer {
+  background-color: #bcbcbc;
+}
+footer .bottom-footer {
+  background-color: #7a7a7a;
+}
+
+.form-group {
+  position: relative;
+}
+.form-group .require {
+  position: absolute;
+  top: 5px;
+  right: 20px;
+}
+
+.radio-button .container {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 22px;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+}
+.radio-button .container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
+.radio-button .container input:checked ~ .checkmark {
+  background-color: #2196f3;
+}
+.radio-button .container input:checked ~ .checkmark::after {
+  display: block;
+}
+.radio-button .container:hover input ~ .checkmark {
+  background-color: #ccc;
+}
+.radio-button .container .checkmark::after {
+  top: 9px;
+  left: 9px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: white;
+}
+
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  background-color: #eee;
+  border-radius: 50%;
+}
+.checkmark::after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+.sp-thongbao {
+  color: red;
+  font-size: 0.9rem;
+  display: none;
+}
+
+.cd-top {
+  width: 50px;
+  height: 50px;
+  background-color: black;
+  color: white;
+  position: fixed;
+  right: 30px;
+  bottom: 50px;
+  opacity: 0;
+  display: inline-block;
+  visibility: hidden;
+  line-height: 50px;
+  text-align: center;
+  z-index: 999;
+  border-radius: 50%;
+}
+
+.cd-top--is-visible {
+  visibility: visible;
+  opacity: 1;
+}
+
+.cd-top--fade-out {
+  opacity: 0.5;
+}
+
+.cd-top:hover {
+  opacity: 1;
+}
+
+.center {
+  text-align: center;
+}
+.center .pagination {
+  display: inline-block;
+}
+.center .pagination button {
+  color: black;
+  float: left;
+  padding: 8px 16px;
+  text-decoration: none;
+  transition: background-color 0.3s;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  margin: 0 5px;
+}
+.center .pagination button.active {
+  background-color: #2a2a2a;
+  color: white;
+  border: 1px solid #2a2a2a;
+  border-radius: 5px;
+}
+.center .pagination button:hover:not(.active) {
+  background-color: #ddd;
+}
+.center .pagination button:disabled {
+  background-color: light-dark(rgba(239, 239, 239, 0.3), rgba(19, 1, 1, 0.3));
+  color: light-dark(rgba(16, 16, 16, 0.3), rgba(255, 255, 255, 0.3));
+  border-color: light-dark(rgba(118, 118, 118, 0.3), rgba(195, 195, 195, 0.3));
+  cursor: not-allowed;
+}/*# sourceMappingURL=style.css.map */

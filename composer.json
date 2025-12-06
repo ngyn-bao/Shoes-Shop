@@ -1,0 +1,6 @@
+{
+    "require": {
+        "vlucas/phpdotenv": "*",
+        "symfony/polyfill-ctype": "*"
+    }
+}
