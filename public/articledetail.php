@@ -57,15 +57,12 @@ while ($row = mysqli_fetch_assoc($result_comments)) {
                         <small><i class="far fa-calendar"></i> <?= date('d/m/Y H:i', strtotime($article['created_at'])) ?></small>
                     </div>
 
-                    <!-- SỬA 2: DÙNG htmlspecialchars_decode ĐỂ HIỆN THẺ HTML -->
                     <div class="content lh-lg">
                         <?= htmlspecialchars_decode($article['content']) ?>
-                        <!-- Nếu muốn xuống dòng bình thường cũng giữ thì dùng dòng dưới -->
                         <!-- <?= nl2br(htmlspecialchars_decode($article['content'])) ?> -->
                     </div>
                 </article>
 
-                <!-- Phần bình luận giữ nguyên -->
                 <section class="mt-5 bg-white shadow rounded p-4">
                     <h3 class="mb-4">Bình luận (<?= count($comments) ?>)</h3>
                     <form id="commentForm" class="mb-5">
@@ -101,7 +98,7 @@ while ($row = mysqli_fetch_assoc($result_comments)) {
             e.preventDefault();
             const formData = new FormData(this);
             $.ajax({
-                url: 'api/addComment.php',
+                url: '../api/Articles/addComment.php',
                 method: 'POST',
                 data: formData,
                 processData: false,

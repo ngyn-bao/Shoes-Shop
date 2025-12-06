@@ -29,4 +29,3 @@ if ($order_id) {
 } else {
     echo json_encode(["success" => false, "message" => "Không thể tạo đơn hàng"]);
 }
-?>

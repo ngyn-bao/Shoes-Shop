@@ -59,22 +59,6 @@
 </div>
 
 <script>
-fetch('../api/Articles/getComment.php') 
-  .then(r => r.json())
-  .then(comments => {
-    const tbody = document.querySelector('tbody');
-    tbody.innerHTML = '';
-    comments.forEach(c => {
-      tbody.innerHTML += `
-        <tr>
-          <td><a href="../public/article_detail.php?id=${c.article_id}" target="_blank">${c.title}</a></td>
-          <td>${c.name}</td>
-          <td>${c.content.substring(0,80)}...</td>
-          <td>${new Date(c.created_at).toLocaleString('vi-VN')}</td>
-          <td><button onclick="deleteComment(${c.id})" class="btn btn-sm btn-danger">Xóa</button></td>
-        </tr>`;
-    });
-  });
 
 function deleteComment(id) {
   if (confirm('Xóa bình luận này?')) {

@@ -1,13 +1,16 @@
 <?php
-class Order {
+class Order
+{
     private $conn;
 
-    public function __construct($db) {
+    public function __construct($db)
+    {
         $this->conn = $db;
     }
 
     // Tạo đơn hàng mới
-    public function createOrder($user_id, $shipping_address, $payment_method, $items) {
+    public function createOrder($user_id, $shipping_address, $payment_method, $items)
+    {
         $this->conn->begin_transaction();
         try {
             $total = 0;
@@ -41,7 +44,8 @@ class Order {
     }
 
     // Lấy danh sách tất cả đơn hàng (dùng cho trang orders.html)
-    public function getAllOrder() {
+    public function getAllOrder()
+    {
         $query = "SELECT o.*, u.full_name 
                   FROM orders o
                   JOIN users u ON o.user_id = u.user_id
@@ -52,7 +56,8 @@ class Order {
     }
 
     // Tính lại tổng tiền chính xác từ order_details
-    public function recalculateTotal($order_id) {
+    public function recalculateTotal($order_id)
+    {
         $sql = "SELECT COALESCE(SUM(quantity * price), 0) AS total FROM order_details WHERE order_id = ?";
         $stmt = $this->conn->prepare($sql);
         $stmt->bind_param("i", $order_id);
@@ -68,7 +73,8 @@ class Order {
     }
 
     // LẤY CHI TIẾT ĐƠN HÀNG – HOÀN HẢO CHO TRANG order-detail.html
-    public function getOrderDetail($order_id) {
+    public function getOrderDetail($order_id)
+    {
         // 1. Lấy thông tin đơn hàng + khách hàng
         $sql = "SELECT 
                     o.order_id,
@@ -134,7 +140,8 @@ class Order {
     }
 
     // Cập nhật trạng thái đơn hàng
-    public function updateStatus($order_id, $status) {
+    public function updateStatus($order_id, $status)
+    {
         $allowed = ['pending', 'processing', 'shipped', 'delivered', 'cancelled'];
         if (!in_array($status, $allowed)) return false;
 
@@ -145,11 +152,11 @@ class Order {
     }
 
     // Hủy đơn hàng (chỉ khi đang pending)
-    public function cancelOrder($order_id) {
+    public function cancelOrder($order_id)
+    {
         $sql = "UPDATE orders SET status = 'cancelled' WHERE order_id = ? AND status = 'pending'";
         $stmt = $this->conn->prepare($sql);
         $stmt->bind_param("i", $order_id);
         return $stmt->execute();
     }
 }
-?>

@@ -18,4 +18,3 @@ echo json_encode([
     "success" => $result,
     "message" => $result ? "Xóa sản phẩm khỏi giỏ hàng thành công" : "Không thể xóa sản phẩm"
 ]);
-?>

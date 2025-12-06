@@ -10,11 +10,18 @@ class Cart {
 
     public function getCart($user_id) {
         $query = "
-            SELECT ci.cart_item_id, ci.product_id, p.product_name, ci.size, ci.quantity, p.price, (p.price * ci.quantity) AS total
-            FROM cart_items ci
-            JOIN cart c ON ci.cart_id = c.cart_id
-            JOIN products p ON ci.product_id = p.product_id
-            WHERE c.user_id = ?
+        SELECT 
+            ci.cart_item_id,
+            ci.product_id,
+            p.product_name AS name,
+            (SELECT image_url FROM product_images WHERE product_id = p.product_id LIMIT 1) AS img,
+            p.price,
+            ci.size,
+            ci.quantity
+        FROM cart_items ci
+        JOIN cart c ON ci.cart_id = c.cart_id
+        JOIN products p ON ci.product_id = p.product_id
+        WHERE c.user_id = ?
         ";
         $stmt = $this->conn->prepare($query);
         $stmt->bind_param("i", $user_id);
@@ -31,24 +38,25 @@ class Cart {
 
     // ➕ Thêm sản phẩm vào giỏ hàng
     public function addToCart($user_id, $product_id, $size, $quantity) {
+
+        // Lấy hoặc tạo cart
         $queryCart = "SELECT cart_id FROM cart WHERE user_id = ?";
         $stmtCart = $this->conn->prepare($queryCart);
         $stmtCart->bind_param("i", $user_id);
         $stmtCart->execute();
         $cartResult = $stmtCart->get_result();
-        $cart_id = null;
 
         if ($row = $cartResult->fetch_assoc()) {
             $cart_id = $row['cart_id'];
         } else {
             $insertCart = "INSERT INTO cart (user_id, created_at) VALUES (?, NOW())";
-            $stmtInsert = $this->conn->prepare($insertCart);
-            $stmtInsert->bind_param("i", $user_id);
-            $stmtInsert->execute();
+            $stmtInsertCart = $this->conn->prepare($insertCart);
+            $stmtInsertCart->bind_param("i", $user_id);
+            $stmtInsertCart->execute();
             $cart_id = $this->conn->insert_id;
         }
 
-
+        // Check existing item cùng size
         $queryItem = "SELECT cart_item_id, quantity FROM cart_items WHERE cart_id = ? AND product_id = ? AND size = ?";
         $stmtItem = $this->conn->prepare($queryItem);
         $stmtItem->bind_param("iis", $cart_id, $product_id, $size);
@@ -56,20 +64,29 @@ class Cart {
         $result = $stmtItem->get_result();
 
         if ($row = $result->fetch_assoc()) {
-            // Cập nhật số lượng
+
+            // Update quantity
             $newQty = $row['quantity'] + $quantity;
             $updateQuery = "UPDATE cart_items SET quantity = ? WHERE cart_item_id = ?";
             $stmtUpdate = $this->conn->prepare($updateQuery);
             $stmtUpdate->bind_param("ii", $newQty, $row['cart_item_id']);
-            return $stmtUpdate->execute();
+            $stmtUpdate->execute();
+
+            return $row['cart_item_id'];
+        }
+
+        // Insert item mới khi size khác
+        $insertQuery = "INSERT INTO cart_items (cart_id, product_id, size, quantity) VALUES (?, ?, ?, ?)";
+        $stmtInsert = $this->conn->prepare($insertQuery);
+        $stmtInsert->bind_param("iisi", $cart_id, $product_id, $size, $quantity);
+
+        if ($stmtInsert->execute()) {
+            return $this->conn->insert_id;
         } else {
-            // Thêm mới
-            $insertQuery = "INSERT INTO cart_items (cart_id, product_id, size, quantity) VALUES (?, ?, ?, ?)";
-            $stmtInsert = $this->conn->prepare($insertQuery);
-            $stmtInsert->bind_param("iisi", $cart_id, $product_id, $size, $quantity);
-            return $stmtInsert->execute();
+            return 0;
         }
     }
+
 
     public function updateQuantity($cart_item_id, $quantity) {
         $query = "UPDATE cart_items SET quantity = ? WHERE cart_item_id = ?";

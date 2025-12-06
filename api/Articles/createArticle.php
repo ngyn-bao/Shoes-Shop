@@ -1,23 +1,33 @@
 <?php
 require_once '../../config/db.php';
+session_start();
 header('Content-Type: application/json');
 
-$title   = mysqli_real_escape_string($conn, $_POST['title'] ?? '');
-$image   = mysqli_real_escape_string($conn, $_POST['image'] ?? '');
-$excerpt = mysqli_real_escape_string($conn, $_POST['excerpt'] ?? '');
-$content = mysqli_real_escape_string($conn, $_POST['content'] ?? '');
+// Check login
+if (!isset($_SESSION['user_id'])) {
+    echo json_encode(['success' => false, 'message' => 'Bạn chưa đăng nhập']);
+    exit;
+}
+
+// Input
+$title     = $_POST['title'] ?? '';
+$image_url = $_POST['image_url'] ?? '';
+$content   = $_POST['content'] ?? '';
+$author_id = $_SESSION['user_id'];
 
 if (empty($title) || empty($content)) {
     echo json_encode(['success' => false, 'message' => 'Tiêu đề và nội dung bắt buộc']);
     exit;
 }
 
-$sql = "INSERT INTO articles (title, image, excerpt, content) 
-        VALUES ('$title', '$image', '$excerpt', '$content')";
+$stmt = $conn->prepare("
+    INSERT INTO articles (title, image_url, content, author_id)
+    VALUES (?, ?, ?, ?)
+");
+$stmt->bind_param("sssi", $title, $image_url, $content, $author_id);
 
-if (mysqli_query($conn, $sql)) {
+if ($stmt->execute()) {
     echo json_encode(['success' => true]);
 } else {
-    echo json_encode(['success' => false, 'message' => mysqli_error($conn)]);
+    echo json_encode(['success' => false, 'message' => $conn->error]);
 }
-?>

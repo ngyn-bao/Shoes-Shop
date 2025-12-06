@@ -11,4 +11,3 @@ echo json_encode([
     "success" => true,
     "message" => "Đăng xuất thành công"
 ]);
-?>

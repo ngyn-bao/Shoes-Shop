@@ -8,9 +8,11 @@ $productModel = new Product($conn);
 // Nhận page & limit từ query string (nếu có)
 $page = isset($_GET['page']) ? (int)$_GET['page'] : null;
 $limit = isset($_GET['limit']) ? (int)$_GET['limit'] : null;
+$category_id = $_GET["category_id"] ?? null;
+$search = isset($_GET['search']) ? $_GET['search'] : null;
 
 try {
-    $result = $productModel->getAll($page, $limit);
+    $result = $productModel->getAll($page, $limit, $category_id, $search);
     echo json_encode([
         "success" => true,
         "data" => $result
@@ -21,4 +23,3 @@ try {
         "message" => $e->getMessage()
     ]);
 }
-?>

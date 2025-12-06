@@ -1,8 +1,12 @@
+const searchInput = document.getElementById("searchInput");
+
+let currentSearch = searchInput.value.trim() || "";
+
 // --- Load sản phẩm từ API ---
-async function loadProducts(page = 1, limit = 6) {
+async function loadProducts(page = 1, limit = 6, category_id = null) {
   try {
     const res = await axios.get(
-      `../api/Product/getAllProducts.php?page=${page}&limit=${limit}`,
+      `../api/Product/getAllProducts.php?page=${page}&limit=${limit}&category_id=${category_id}&search=${currentSearch}`,
     );
 
     const result = res.data?.data;
@@ -56,7 +60,7 @@ function renderBanner(allProducts) {
             <button onclick="location.href='product_detail.php?id=${
               p.product_id
             }'" 
-                    class="btn btn-warning py-3 px-5 text-white">
+                    class="btn btn-dark py-3 px-5 text-white">
               Buy Now
             </button>
           </div>
@@ -111,8 +115,8 @@ function renderProducts(products) {
               ).toLocaleString()} VND</p>
               <a href="product_detail.php?id=${
                 p.product_id
-              }" class="btn btn-warning text-white">
-                Xem chi tiết
+              }" class="btn btn-dark text-white">
+                View Detail
               </a>
             </div>
           </div>
@@ -149,4 +153,15 @@ function renderPagination(currentPage, limit, total, containerId) {
   `;
 }
 
-loadProducts(); // Gọi khi trang load
+document.addEventListener("DOMContentLoaded", () => {
+  const urlParams = new URLSearchParams(window.location.search);
+  const category_id = urlParams.get("category_id");
+
+  loadProducts(1, 6, category_id);
+});
+
+searchInput.addEventListener("input", function () {
+  currentSearch = this.value.trim();
+  currentPage = 1; // reset lại page
+  loadProducts(1, 6);
+});

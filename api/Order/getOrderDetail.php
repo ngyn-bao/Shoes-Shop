@@ -13,7 +13,7 @@ if (!$order_id || !is_numeric($order_id)) {
 }
 
 // TÍNH LẠI TỔNG TIỀN CHÍNH XÁC TRƯỚC KHI TRẢ VỀ
-$orderModel->recalculateTotal($order_id);  // ← DÒNG QUAN TRỌNG
+$orderModel->recalculateTotal($order_id);  
 
 $result = $orderModel->getOrderDetail($order_id);
 

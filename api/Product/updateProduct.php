@@ -18,7 +18,7 @@ $result = $productModel->update($id, $data);
 
 if ($result) {
     // Xử lý ảnh chính
-    $productModel->conn->query("DELETE FROM product_images WHERE product_id = $id AND is_main = 1");
+    $productModel->query("DELETE FROM product_images WHERE product_id = $id AND is_main = 1");
     if (!empty($data['image_url'])) {
         $productModel->addImage($id, $data['image_url'], 1);
     }
