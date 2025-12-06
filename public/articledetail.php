@@ -17,7 +17,9 @@ if (!$article) {
     exit;
 }
 
-$sql_comments = "SELECT * FROM comments WHERE article_id = $id AND is_approved = 1 ORDER BY created_at DESC";
+$sql_comments = "SELECT name, email, content, created_at FROM comments 
+                 WHERE article_id = $id AND is_approved = 1 
+                 ORDER BY created_at DESC";
 $result_comments = mysqli_query($conn, $sql_comments);
 $comments = [];
 while ($row = mysqli_fetch_assoc($result_comments)) {
@@ -44,7 +46,6 @@ while ($row = mysqli_fetch_assoc($result_comments)) {
                 <article class="bg-white shadow rounded p-4 p-md-5">
                     <h1 class="display-5 fw-bold mb-4"><?= htmlspecialchars($article['title']) ?></h1>
 
-                    <!-- SỬA 1: DÙNG $article, KHÔNG DÙNG $post -->
                     <?php if ($article['image']): ?>
                         <img src="../public/<?= htmlspecialchars($article['image']) ?>" 
                              class="img-fluid rounded mb-4" 
@@ -67,9 +68,7 @@ while ($row = mysqli_fetch_assoc($result_comments)) {
                     <h3 class="mb-4">Bình luận (<?= count($comments) ?>)</h3>
                     <form id="commentForm" class="mb-5">
                         <input type="hidden" name="article_id" value="<?= $id ?>">
-                        <div class="mb-3">
-                            <input type="text" name="name" class="form-control" placeholder="Tên của bạn" required>
-                        </div>
+                        
                         <div class="mb-3">
                             <textarea name="content" class="form-control" rows="4" placeholder="Viết bình luận..." required></textarea>
                         </div>
