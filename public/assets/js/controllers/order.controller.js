@@ -66,7 +66,7 @@ document.getElementById("btnOrder").addEventListener("click", async () => {
     if (res.data.success) {
       alert("Order Success!");
       localStorage.removeItem("cart");
-      window.location.href = "./products.php";
+      window.location.href = "./index.php";
     } else {
       alert("Order failed: " + res.data.message);
     }

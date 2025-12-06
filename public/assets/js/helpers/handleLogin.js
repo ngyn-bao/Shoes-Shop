@@ -1,7 +1,7 @@
 function loadHeader() {
   const user = JSON.parse(localStorage.getItem("user"));
-  const btnLogin = document.getElementById("btnLogin");
-  const btnRegister = document.getElementById("btnRegister");
+  const btnLogin = document.getElementById("login");
+  const btnRegister = document.getElementById("register");
   const userAvatar = document.getElementById("userAvatar");
 
   if (user) {

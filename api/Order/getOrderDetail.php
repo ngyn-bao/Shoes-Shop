@@ -12,6 +12,8 @@ if (!$order_id) {
     exit;
 }
 
+$orderModel->recalculateTotal($order_id);
+
 $result = $orderModel->getOrderDetail($order_id);
 
 if ($result) {

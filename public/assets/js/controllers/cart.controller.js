@@ -100,4 +100,11 @@ function save() {
   renderCart();
 }
 
-loadCart();
+const user = JSON.parse(localStorage.getItem("user")); // Lấy user login
+
+if (!user) {
+  alert("Bạn cần đăng nhập để đặt hàng!");
+  window.location.href = "./login.php";
+} else {
+  loadCart();
+}

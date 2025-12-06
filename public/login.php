@@ -42,20 +42,21 @@
               autocomplete="off" />
           </div>
 
+        </div>
 
-          <div class="my-3">
-            <div class="col-6 ">
-              <button
-                type="button"
-                id="btnLogin"
-                class="btn btn-info text-white px-4 py-2 fs-5">
-                Login
-              </button>
-            </div>
+        <div class="my-3">
+          <div class="col-6">
+            <button
+              type="button"
+              id="btnLogin"
+              class="btn btn-info text-white px-4 py-2 fs-5">
+              Login
+            </button>
           </div>
+        </div>
 
       </form>
-    </div>
+
   </section>
 
   <?php include './includes/footer.php'; ?>
@@ -68,7 +69,7 @@
   <link rel="stylesheet" href="./assets/css/NotifyJS/notify.css" />
   <script src="./assets/js/NotifyJS/notify.js"></script>
 
-  <script src="./assets/js/controllers/login.controller.js" type="module"></script>
+  <script src="./assets/js/controllers/login.controller.js"></script>
 </body>
 
 </html>

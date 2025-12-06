@@ -38,11 +38,11 @@ btnLogin.addEventListener("click", async () => {
 
       if (response.data.user.role === "admin") {
         setTimeout(() => {
-          window.location.href = "admin.php";
+          window.location.href = "../Admin/index.html";
         }, 800);
       } else {
         setTimeout(() => {
-          window.location.href = "products.php";
+          window.location.href = "index.php";
         }, 800);
       }
       // Redirect sau 0.8s

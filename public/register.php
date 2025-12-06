@@ -112,7 +112,7 @@
   <link rel="stylesheet" href="./assets/css/NotifyJS/notify.css" />
   <script src="./assets/js/NotifyJS/notify.js"></script>
 
-  <script src="./assets/js/controllers/register.controller.js" type="module"></script>
+  <script src="./assets/js/controllers/register.controller.js"></script>
 </body>
 
 </html>
