@@ -4,8 +4,24 @@
 <head>
   <meta charset="UTF-8">
   <title>Viết bài mới - Admin</title>
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+  
+  <style>
+    @media (max-width: 768px) {
+        .btn {
+            width: 100%; 
+            margin-bottom: 10px;
+            padding: 12px; 
+        }
+        .text-end {
+            text-align: center !important; 
+        }
+    }
+  </style>
 </head>
 
 <body class="bg-light">
@@ -13,7 +29,7 @@
 
   <div class="main-content">
 
-    <div class="container-fluid">
+    <div class="container-fluid py-4">
       <div class="row">
         <div class="col-12">
           <div class="card shadow">
@@ -43,8 +59,9 @@
                   <label class="form-label fw-bold">Nội dung chi tiết</label>
                   <textarea name="content" class="form-control" rows="15" required></textarea>
                 </div>
+                
                 <div class="text-end">
-                  <a href="ArticleIndex.php" class="btn btn-secondary me-2">Hủy</a>
+                  <a href="ArticleIndex.php" class="btn btn-secondary me-md-2">Hủy</a>
                   <button type="submit" class="btn btn-success btn-lg px-5">Đăng bài</button>
                 </div>
               </form>
@@ -54,9 +71,10 @@
       </div>
     </div>
   </div>
+  
   <script>
     const user = JSON.parse(localStorage.getItem("user"));
-    if (user["role"] !== "admin") {
+    if (!user || user["role"] !== "admin") {
       alert("Bạn phải là admin để truy cập trang này!");
       window.location.href = "../public/index.php";
     }
