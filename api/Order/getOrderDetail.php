@@ -7,12 +7,13 @@ $orderModel = new Order($conn);
 
 $order_id = $_GET['order_id'] ?? null;
 
-if (!$order_id) {
-    echo json_encode(["success" => false, "message" => "Thiếu order_id"]);
+if (!$order_id || !is_numeric($order_id)) {
+    echo json_encode(["success" => false, "message" => "Thiếu hoặc sai order_id"]);
     exit;
 }
 
-$orderModel->recalculateTotal($order_id);
+// TÍNH LẠI TỔNG TIỀN CHÍNH XÁC TRƯỚC KHI TRẢ VỀ
+$orderModel->recalculateTotal($order_id);  
 
 $result = $orderModel->getOrderDetail($order_id);
 
@@ -21,3 +22,4 @@ if ($result) {
 } else {
     echo json_encode(["success" => false, "message" => "Không tìm thấy đơn hàng"]);
 }
+?>

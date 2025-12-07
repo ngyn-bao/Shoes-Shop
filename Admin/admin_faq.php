@@ -7,21 +7,17 @@
     <title>FAQ Manager | Shoes Shop</title>
     <link rel="icon" type="image/x-icon" href="./img/favicon.ico">
     <!-- Font Awesome -->
-    <link
-        rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
 
     <!-- Bootstrap -->
-    <link
-        rel="stylesheet"
-        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" />
 
     <link rel="stylesheet" href="./assets/css/style.css" />
 </head>
 
-<body>
+<body class="bg-light">
 
-
+    <?php include 'sidebar.php'; ?>
 
     <div class="container my-5">
         <h1>Quản lý FAQ</h1>
@@ -40,7 +36,7 @@
             <textarea class="form-control mb-2" name="answer" placeholder="Nhập câu trả lời..."></textarea>
 
             <div class="col text-end">
-                <button class="btn btn-success">Thêm FQA</button>
+                <button class="btn btn-success">Thêm FAQ</button>
             </div>
         </form>
 
@@ -74,7 +70,8 @@
                         <input type="hidden" name="faq_id" id="edit_faq_id">
                         <select class="form-control mb-2" name="category_id" id="edit_category"></select>
                         <input class="form-control mb-2" name="question" id="edit_question" placeholder="Câu hỏi">
-                        <textarea class="form-control" name="answer" id="edit_answer" placeholder="Câu trả lời"></textarea>
+                        <textarea class="form-control" name="answer" id="edit_answer"
+                            placeholder="Câu trả lời"></textarea>
                     </div>
 
                     <div class="modal-footer">
@@ -85,12 +82,16 @@
         </div>
     </div>
 
-    <script
-        src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
         crossorigin="anonymous"></script>
 
     <script>
+        const user = JSON.parse(localStorage.getItem("user"));
+        if (user["role"] !== "admin") {
+            alert("Bạn phải là admin để truy cập trang này!");
+            window.location.href = "../public/index.php";
+        }
         const faqTable = document.getElementById("faqTable");
         const adminCategory = document.getElementById("adminCategory");
         const editCategory = document.getElementById("edit_category");
@@ -128,7 +129,7 @@
         loadFAQ();
 
         // Create / Update
-        document.getElementById("faqForm").addEventListener("submit", function(e) {
+        document.getElementById("faqForm").addEventListener("submit", function (e) {
             e.preventDefault();
             const formData = new FormData(this);
 
@@ -172,14 +173,14 @@
         }
 
         // Submit update
-        document.getElementById("editForm").addEventListener("submit", function(e) {
+        document.getElementById("editForm").addEventListener("submit", function (e) {
             e.preventDefault();
             const fd = new FormData(this);
 
             fetch("../api/FAQ/updateFAQ.php", {
-                    method: "POST",
-                    body: fd
-                })
+                method: "POST",
+                body: fd
+            })
                 .then(() => {
                     bootstrap.Modal.getInstance(document.getElementById("editModal")).hide();
                     loadFAQ();

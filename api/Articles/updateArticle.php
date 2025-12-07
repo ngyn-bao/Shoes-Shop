@@ -3,42 +3,62 @@ require '../../config/db.php';
 header('Content-Type: application/json');
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    echo json_encode(['success' => false, 'message' => 'Phương thức không hợp lệ']);
+    echo json_encode(['success' => false, 'message' => 'Invalid Method']);
     exit;
 }
 
 $id      = (int)($_POST['id'] ?? 0);
-$title   = trim($_POST['title'] ?? '');
-$image_url   = trim($_POST['image'] ?? '');
-// $excerpt = trim($_POST['excerpt'] ?? '');
-$content = trim($_POST['content'] ?? '');
+$title   = $_POST['title'] ?? '';
+$excerpt = $_POST['excerpt'] ?? '';
+$content = $_POST['content'] ?? '';
 
-if ($id <= 0) {
-    echo json_encode(['success' => false, 'message' => 'ID bài viết không hợp lệ']);
-    exit;
-}
-if (empty($title) || empty($content)) {
-    echo json_encode(['success' => false, 'message' => 'Tiêu đề và nội dung không được để trống']);
+if ($id <= 0 || empty($title) || empty($content)) {
+    echo json_encode(['success' => false, 'message' => 'Thiếu thông tin bắt buộc']);
     exit;
 }
 
-$title   = mysqli_real_escape_string($conn, $title);
-$image_url   = mysqli_real_escape_string($conn, $image_url);
-// $excerpt = mysqli_real_escape_string($conn, $excerpt);
-$content = mysqli_real_escape_string($conn, $content);
+//Xử lý logic Upload ảnh
+$newImagePath = null;
 
-$sql = "UPDATE articles 
-        SET title = '$title',
-            image_url = '$image_url',
-            content = '$content',
-            updated_at = NOW()
-        WHERE article_id = $id";
+if (isset($_FILES['image']) && $_FILES['image']['error'] === 0) {
+    $uploadDir = '../../public/img/';
+    
+    if (!file_exists($uploadDir)) mkdir($uploadDir, 0777, true);
 
-if (mysqli_query($conn, $sql)) {
-    echo json_encode(['success' => true, 'message' => 'Cập nhật bài viết thành công!']);
+    $ext = strtolower(pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION));
+    $allowed = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
+
+    if (in_array($ext, $allowed)) {
+        $fileName = time() . '_' . uniqid() . '.' . $ext;
+        
+        // Di chuyển file vào thư mục
+        if (move_uploaded_file($_FILES['image']['tmp_name'], $uploadDir . $fileName)) {
+            $newImagePath = 'img/' . $fileName; 
+        } else {
+            echo json_encode(['success' => false, 'message' => 'Không thể lưu file ảnh']);
+            exit;
+        }
+    } else {
+        echo json_encode(['success' => false, 'message' => 'File ảnh không hợp lệ']);
+        exit;
+    }
+}
+
+if ($newImagePath) {
+    // Có ảnh mới -> Cập nhật cột image
+    $sql = "UPDATE articles SET title=?, image=?, excerpt=?, content=?, updated_at=NOW() WHERE id=?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("ssssi", $title, $newImagePath, $excerpt, $content, $id);
 } else {
-    echo json_encode([
-        'success' => false,
-        'message' => 'Lỗi database: ' . mysqli_error($conn)
-    ]);
+    // Không có ảnh mới -> Giữ nguyên ảnh cũ
+    $sql = "UPDATE articles SET title=?, excerpt=?, content=?, updated_at=NOW() WHERE id=?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("sssi", $title, $excerpt, $content, $id);
 }
+
+if ($stmt->execute()) {
+    echo json_encode(['success' => true, 'message' => 'Cập nhật thành công']);
+} else {
+    echo json_encode(['success' => false, 'message' => $conn->error]);
+}
+?>

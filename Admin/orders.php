@@ -92,7 +92,8 @@ $api = '../api/Order/';
     </style>
 </head>
 
-<body class="p-4">
+<body class="bg-light">
+    <?php include 'sidebar.php'; ?>
     <div class="container-fluid">
         <h2 class="page-title mb-4">Quản lý đơn hàng</h2>
         <div class="card shadow-sm border-0">
@@ -121,6 +122,11 @@ $api = '../api/Order/';
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
+        const user = JSON.parse(localStorage.getItem("user"));
+        if (user["role"] !== "admin") {
+            alert("Bạn phải là admin để truy cập trang này!");
+            window.location.href = "../public/index.php";
+        }
         const api = '<?= $api ?>';
 
         async function loadOrders() {
@@ -175,11 +181,11 @@ $api = '../api/Order/';
                     <td class="text-center">
                         <span class="badge ${s.class} px-3 py-2">${s.text}</span>
                         <select class="form-select form-select-sm mt-2 statusSelect" data-id="${order.order_id}">
-                            <option value="pending"     ${order.status==='pending'?'selected':''}>Chờ xử lý</option>
-                            <option value="processing"  ${order.status==='processing'?'selected':''}>Đang xử lý</option>
-                            <option value="shipped"     ${order.status==='shipped'?'selected':''}>Đã giao</option>
-                            <option value="delivered"   ${order.status==='delivered'?'selected':''}>Hoàn thành</option>
-                            <option value="cancelled"   ${order.status==='cancelled'?'selected':''}>Đã hủy</option>
+                            <option value="pending"     ${order.status === 'pending' ? 'selected' : ''}>Chờ xử lý</option>
+                            <option value="processing"  ${order.status === 'processing' ? 'selected' : ''}>Đang xử lý</option>
+                            <option value="shipped"     ${order.status === 'shipped' ? 'selected' : ''}>Đã giao</option>
+                            <option value="delivered"   ${order.status === 'delivered' ? 'selected' : ''}>Hoàn thành</option>
+                            <option value="cancelled"   ${order.status === 'cancelled' ? 'selected' : ''}>Đã hủy</option>
                         </select>
                     </td>
                     <td class="text-center">

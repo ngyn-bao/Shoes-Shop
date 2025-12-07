@@ -19,3 +19,4 @@ echo json_encode([
     "new_total" => $new_total,
     "formatted" => number_format($new_total, 0, ',', '.') . '₫'
 ]);
+?>

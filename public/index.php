@@ -4,25 +4,33 @@
 <html lang="en">
 
 <head>
-  <title>Shoes Shop</title>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-  <link rel="icon" type="image/x-icon" href="./img/favicon.ico">
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
+    <title>Shoes Shop</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <link rel="icon" type="image/x-icon" href="./img/favicon.ico">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
 
-  <!-- Bootstrap -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
 
-  <!-- Owl Carousel -->
-  <link rel="stylesheet" href="./assets/css/OwlCarousel/owl.carousel.min.css" />
-  <link rel="stylesheet" href="./assets/css/OwlCarousel/owl.theme.default.min.css" />
+    <link rel="stylesheet" href="./assets/css/OwlCarousel/owl.carousel.min.css" />
+    <link rel="stylesheet" href="./assets/css/OwlCarousel/owl.theme.default.min.css" />
 
-  <link rel="stylesheet" href="./assets/css/style.css" />
+    <link rel="stylesheet" href="./assets/css/style.css" />
+
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh; 
+        }
+        footer {
+            margin-top: auto;
+        }
+    </style>
 </head>
 
 <body>
-  <?php include './includes/header.php'; ?>
+    <?php include './includes/header.php'; ?>
 
   <nav class="secondary-nav">
     <div class="container">
@@ -60,7 +68,7 @@
 
   <?php
   require_once '../config/db.php';
-  $sql = "SELECT article_id, title, image_url, content , created_at FROM articles ORDER BY created_at DESC LIMIT 3"; // Giới hạn lấy 3 bài mới nhất cho đẹp trang chủ
+  $sql = "SELECT id, title, image, content , created_at FROM articles ORDER BY created_at DESC LIMIT 3";
   $result = mysqli_query($conn, $sql);
 
   if (!$result) {
@@ -75,22 +83,21 @@
 
   <?php include './includes/footer.php'; ?>
 
-  <!-- backtoTop -->
-  <a href="#" class="cd-top text-replace js-cd-top">
-    <i class="fa-solid fa-angle-up"></i>
-  </a>
 
-  <!-- JS Libs -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="./assets/js/OwlCarousel/owl.carousel.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.7.7/axios.min.js"></script>
-  <script src="./assets/js/helpers/util.js"></script>
-  <script src="./assets/js/helpers/main.js"></script>
+    <a href="#" class="cd-top text-replace js-cd-top">
+        <i class="fa-solid fa-angle-up"></i>
+    </a>
 
-  <script src="./assets/js/controllers/products.controller.js">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="./assets/js/OwlCarousel/owl.carousel.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.7.7/axios.min.js"></script>
+    <script src="./assets/js/helpers/util.js"></script>
+    <script src="./assets/js/helpers/main.js"></script>
 
-  </script>
+    <script src="./assets/js/controllers/products.controller.js"></script>
+    
+    
 </body>
 
 </html>

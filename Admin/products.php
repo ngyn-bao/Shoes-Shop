@@ -68,7 +68,8 @@ $api = '../api/Product/';
     </style>
 </head>
 
-<body class="p-4">
+<body class="bg-light">
+    <?php include 'sidebar.php'; ?>
     <div class="container-fluid">
         <div class="d-flex justify-content-between align-items-center mb-4">
             <h2 class="page-title mb-0">Quản lý sản phẩm</h2>
@@ -116,7 +117,8 @@ $api = '../api/Product/';
                             </div>
                             <div class="col-lg-5">
                                 <label class="form-label required">Giá gốc (₫)</label>
-                                <input type="number" class="form-control form-control-lg" id="original_price" min="1000" required>
+                                <input type="number" class="form-control form-control-lg" id="original_price" min="1000"
+                                    required>
                             </div>
                         </div>
                         <div class="row g-3 mb-3">
@@ -176,6 +178,11 @@ $api = '../api/Product/';
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
+        const user = JSON.parse(localStorage.getItem("user"));
+        if (user["role"] !== "admin") {
+            alert("Bạn phải là admin để truy cập trang này!");
+            window.location.href = "../public/index.php";
+        }
         const api = '<?= $api ?>';
 
         async function loadProducts() {
@@ -210,7 +217,7 @@ $api = '../api/Product/';
         }
 
         async function deleteProduct(id) {
-            if (!confirm('Xóa thật nhé?')) return;
+            if (!confirm('Xóa?')) return;
             await fetch(api + 'deleteProduct.php', {
                 method: 'POST',
                 headers: {

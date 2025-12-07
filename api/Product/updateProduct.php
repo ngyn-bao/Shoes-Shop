@@ -1,7 +1,7 @@
 <?php
 header("Content-Type: application/json");
-require_once __DIR__ . '/../../config/db.php';
-require_once __DIR__ . '/../../models/product.model.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/Shoes-Shop/config/db.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/Shoes-Shop/models/product.model.php';
 
 $productModel = new Product($conn);
 $data = json_decode(file_get_contents("php://input"), true) ?? [];
@@ -28,3 +28,4 @@ echo json_encode([
     "success" => $result,
     "message" => $result ? "Cập nhật thành công" : "Cập nhật thất bại"
 ]);
+?>
