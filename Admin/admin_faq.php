@@ -19,9 +19,9 @@
     <link rel="stylesheet" href="./assets/css/style.css" />
 </head>
 
-<body>
+<body class="bg-light">
 
-
+<?php include 'sidebar.php'; ?>
 
     <div class="container my-5">
         <h1>Quản lý FAQ</h1>
@@ -40,7 +40,7 @@
             <textarea class="form-control mb-2" name="answer" placeholder="Nhập câu trả lời..."></textarea>
 
             <div class="col text-end">
-                <button class="btn btn-success">Thêm FQA</button>
+                <button class="btn btn-success">Thêm FAQ</button>
             </div>
         </form>
 

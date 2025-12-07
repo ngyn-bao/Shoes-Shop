@@ -92,7 +92,8 @@ $api = '../api/Order/';
     </style>
 </head>
 
-<body class="p-4">
+<body class="bg-light">
+    <?php include 'sidebar.php'; ?>
     <div class="container-fluid">
         <h2 class="page-title mb-4">Quản lý đơn hàng</h2>
         <div class="card shadow-sm border-0">

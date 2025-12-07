@@ -23,6 +23,7 @@
 </head>
 
 <body>
+  <?php include 'sidebar.php'; ?>
   <div class="container-fluid py-4">
     <div class="d-flex justify-content-between align-items-center mb-4">
       <h2 class="text-primary"><i class="fas fa-cog"></i> Quản lý Tin tức</h2>
@@ -62,7 +63,7 @@
                     <td>${a.title}</td>
                     <td>${new Date(a.created_at).toLocaleDateString('vi-VN')}</td>
                     <td class="text-center">
-                      <a href="../public/article_detail.php?id=${a.id}" target="_blank" class="btn btn-sm btn-info">Xem</a>
+                      <a href="../public/articledetail.php?id=${a.id}" target="_blank" class="btn btn-sm btn-info">Xem</a>
                       <a href="ArticleEdit.php?id=${a.id}" class="btn btn-sm btn-warning">Sửa</a>
                       <button onclick="deleteArticle(${a.id})" class="btn btn-sm btn-danger">Xóa</button>
                     </td>

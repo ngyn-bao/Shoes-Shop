@@ -68,7 +68,8 @@ $api = '../api/Product/';
     </style>
 </head>
 
-<body class="p-4">
+<body class="bg-light">
+    <?php include 'sidebar.php'; ?>
     <div class="container-fluid">
         <div class="d-flex justify-content-between align-items-center mb-4">
             <h2 class="page-title mb-0">Quản lý sản phẩm</h2>

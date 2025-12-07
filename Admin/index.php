@@ -62,28 +62,25 @@
       }
     </style>
   </head>
-  <body>
-    <!-- Sidebar -->
-    <div class="sidebar">
-      <h2>Shoes Shop Admin</h2>
-      <a href="products.php"><i class="bi bi-box-seam"></i> Quản lý sản phẩm</a>
-      <a href="orders.php"><i class="bi bi-bag"></i> Quản lý đơn hàng</a>
-      <a href="contacts.php"><i class="bi bi-envelope"></i> Quản lý liên hệ</a>
-      <a href="ArticleIndex.php"
-        ><i class="bi bi-newspaper"></i> Quản lý bài báo</a
-      >
-      <a href="admin_faq.php"><i class="bi bi-question"></i> Quản lý FAQ</a>
-      <a href="admin_questions.php"
-        ><i class="bi bi-question"></i> Quản lý câu hỏi</a
-      >
-      <a href="#" id="btnLogout"><i class="bi bi-door-closed"></i> Logout</a>
-    </div>
+  <body class="bg-light">
+    
+    <?php include 'sidebar.php'; ?>
 
     <!-- Main content -->
     <div class="main-content">
       <h1 class="mb-4">Dashboard</h1>
 
       <div class="row g-4">
+        <div class="col-md-3">
+          <div
+            class="card text-center p-3"
+            onclick="location.href='admin_user.php'"
+          >
+            <i class="bi bi-person card-icon"></i>
+            <h5 class="mt-3">User</h5>
+            <p class="text-muted">Quản lý người dùng</p>
+          </div>
+        </div>
         <div class="col-md-3">
           <div
             class="card text-center p-3"
@@ -114,6 +111,8 @@
             <p class="text-muted">Xem liên hệ khách hàng</p>
           </div>
         </div>
+      </div>
+      <div class="row g-4 mt-5">
         <div class="col-md-3">
           <div
             class="card text-center p-3"
@@ -124,8 +123,6 @@
             <p class="text-muted">Xem bài báo</p>
           </div>
         </div>
-      </div>
-      <div class="row g-4 mt-5">
         <div class="col-md-3">
           <div
             class="card text-center p-3"

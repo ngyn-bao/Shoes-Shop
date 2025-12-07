@@ -1,6 +1,16 @@
 <?php
 require_once '../config/db.php';
-$sql = "SELECT id, title, image, excerpt, created_at FROM articles ORDER BY created_at DESC";
+
+$limit = 6; 
+$page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+if ($page < 1) $page = 1;
+$start = ($page - 1) * $limit;
+
+$totalResults = mysqli_query($conn, "SELECT COUNT(id) AS id FROM articles");
+$totalCount = mysqli_fetch_assoc($totalResults)['id'];
+$totalPages = ceil($totalCount / $limit);
+
+$sql = "SELECT id, title, image, excerpt, created_at FROM articles ORDER BY created_at DESC LIMIT $start, $limit";
 $result = mysqli_query($conn, $sql);
 
 if (!$result) {
@@ -34,7 +44,6 @@ while ($row = mysqli_fetch_assoc($result)) {
         </div>
     </header>
 
-    <!-- Search Bar -->
     <section class="container my-4">
         <div class="row justify-content-center">
             <div class="col-lg-6 col-md-8">
@@ -43,7 +52,7 @@ while ($row = mysqli_fetch_assoc($result)) {
                         <i class="fas fa-search text-muted"></i>
                     </span>
                     <input type="text" id="searchInput" class="form-control border-start-0"
-                        placeholder="Tìm kiếm bài viết..." autocomplete="off">
+                        placeholder="Tìm kiếm bài viết trên trang này..." autocomplete="off">
                 </div>
             </div>
         </div>
@@ -51,51 +60,67 @@ while ($row = mysqli_fetch_assoc($result)) {
 
     <main class="container my-5">
         <div class="row g-4" id="postsContainer">
-            <?php foreach ($posts as $post): ?>
-                <div class="col-md-4 post-card" data-title="<?= strtolower(htmlspecialchars($post['title'])) ?>"
-                    data-excerpt="<?= strtolower(htmlspecialchars($post['excerpt'])) ?>">
-                    <div class="card h-100 shadow-sm">
-                        <img src="../public/<?= htmlspecialchars($post['image']) ?>" class="card-img-top"
-                            style="height:200px; object-fit:cover;" onerror="this.src='../public/img/no-image.jpg'">
-                        <div class="card-body d-flex flex-column">
-                            <h5 class="card-title"><?= htmlspecialchars($post['title']) ?></h5>
-                            <p class="card-text text-muted flex-grow-1">
-                                <?= htmlspecialchars($post['excerpt'] ?: 'Xem chi tiết...') ?>
-                            </p>
-                            <div class="mt-auto">
-                                <small class="text-muted">
-                                    <?= date('d/m/Y', strtotime($post['created_at'])) ?>
-                                </small>
-                                <a href="articledetail.php?id=<?= $post['id'] ?>"
-                                    class="btn btn-dark btn-sm d-block mt-2">Đọc tiếp</a>
+            <?php if (count($posts) > 0): ?>
+                <?php foreach ($posts as $post): ?>
+                    <div class="col-md-4 post-card" data-title="<?= strtolower(htmlspecialchars($post['title'])) ?>"
+                        data-excerpt="<?= strtolower(htmlspecialchars($post['excerpt'])) ?>">
+                        <div class="card h-100 shadow-sm">
+                            <img src="../public/<?= htmlspecialchars($post['image']) ?>" class="card-img-top"
+                                style="height:200px; object-fit:cover;" onerror="this.src='../public/img/no-image.jpg'">
+                            <div class="card-body d-flex flex-column">
+                                <h5 class="card-title"><?= htmlspecialchars($post['title']) ?></h5>
+                                <p class="card-text text-muted flex-grow-1">
+                                    <?= htmlspecialchars($post['excerpt'] ?: 'Xem chi tiết...') ?>
+                                </p>
+                                <div class="mt-auto">
+                                    <small class="text-muted">
+                                        <?= date('d/m/Y', strtotime($post['created_at'])) ?>
+                                    </small>
+                                    <a href="articledetail.php?id=<?= $post['id'] ?>"
+                                        class="btn btn-dark btn-sm d-block mt-2">Đọc tiếp</a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            <?php endforeach; ?>
+                <?php endforeach; ?>
+            <?php else: ?>
+                <p class="text-center">Hiện chưa có bài viết nào.</p>
+            <?php endif; ?>
         </div>
+
+        <?php if ($totalPages > 1): ?>
+            <nav aria-label="Page navigation" class="mt-5">
+                <ul class="pagination justify-content-center">   
+                    <?php for ($i = 1; $i <= $totalPages; $i++): ?>
+                        <li class="page-item <?= ($page == $i) ? 'active' : '' ?>">
+                            <a class="page-link" href="?page=<?= $i ?>"><?= $i ?></a>
+                        </li>
+                    <?php endfor; ?>
+
+                    <li class="page-item <?= ($page >= $totalPages) ? 'disabled' : '' ?>">
+                        <a class="page-link" href="?page=<?= $page + 1 ?>">Next</a>
+                    </li>
+                </ul>
+            </nav>
+        <?php endif; ?>
 
         <div id="noResults" class="text-center mt-5 d-none">
             <p class="text-muted fs-4">Không tìm thấy bài viết nào.</p>
         </div>
     </main>
 
-    
     <?php include './includes/footer.php'; ?>
 
-    <!-- Scripts -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         $(document).ready(function() {
             $("#searchInput").on("keyup", function() {
                 var value = $(this).val().toLowerCase().trim();
                 var hasResult = false;
-
                 $(".post-card").each(function() {
                     var title = $(this).data("title"); 
                     var excerpt = $(this).data("excerpt");
-
                     if (title.indexOf(value) > -1 || excerpt.indexOf(value) > -1) {
                         $(this).show(); 
                         hasResult = true;
@@ -103,16 +128,10 @@ while ($row = mysqli_fetch_assoc($result)) {
                         $(this).hide(); 
                     }
                 });
-
-                if (!hasResult) {
-                    $("#noResults").removeClass("d-none");
-                } else {
-                    $("#noResults").addClass("d-none");
-                }
+                if (!hasResult) { $("#noResults").removeClass("d-none"); } 
+                else { $("#noResults").addClass("d-none"); }
             });
         });
     </script>
-    </body>
 </body>
-
 </html>

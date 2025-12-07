@@ -32,53 +32,57 @@
 <body>
     <?php include './includes/header.php'; ?>
 
-    <nav class="secondary-nav">
-        <div class="container">
-            <ul class="d-flex align-items-center gap-4">
-                <li class="nav-item">
-                    <a href="./index.php" class="nav-link active">Home</a>
-                </li>
-                <li class="nav-item"><a href="./index.php?category_id=1" class="nav-link">Men</a></li>
-                <li class="nav-item"><a href="./index.php?category_id=2" class="nav-link">Women</a></li>
-                <li class="nav-item"><a href="./index.php?category_id=3" class="nav-link">Kid</a></li>
-                <li class="nav-item"><a href="./index.php?category_id=4" class="nav-link">Sport</a></li>
-                <li class="nav-item"><a href="./articlelist.php" class="nav-link">Blog</a></li>
-            </ul>
-        </div>
-    </nav>
-    <section class="banner">
-        <div class="banner-content owl-carousel owl-theme" id="banner-content"></div>
-    </section>
+  <nav class="secondary-nav">
+    <div class="container">
+      <ul class="d-flex align-items-center gap-4">
+        <li class="nav-item">
+          <a href="./index.php" class="nav-link active">Home</a>
+        </li>
+        <li class="nav-item"><a href="./index.php?category_id=1" class="nav-link">Men</a></li>
+        <li class="nav-item"><a href="./index.php?category_id=2" class="nav-link">Women</a></li>
+        <li class="nav-item"><a href="./index.php?category_id=3" class="nav-link">Kid</a></li>
+        <li class="nav-item"><a href="./index.php?category_id=4" class="nav-link">Sport</a></li>
+        <li class="nav-item"><a href="./articlelist.php" class="nav-link">Blog</a></li>
+      </ul>
+    </div>
+  </nav>
+  <!-- Banner -->
+  <section class="banner">
+    <div class="banner-content owl-carousel owl-theme" id="banner-content"></div>
+  </section>
 
-    <section class="feature p-5">
-        <h2 class="text-center fs-1 fw-normal">- Product Feature -</h2>
-        <div class="container my-3">
-            <form class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-2" id="searchInput" type="search" placeholder="Search products..." aria-label="Search">
-            </form>
-        </div>
-        <div class="container">
-            <div class="row g-5" id="product-list"></div>
-            <div id="pagination-container" class="text-center mt-4"></div>
-        </div>
-    </section>
+  <!-- Product Section -->
+  <section class="feature p-5">
+    <h2 class="text-center fs-1 fw-normal">- Product Feature -</h2>
+    <div class="container my-3">
+      <form class="form-inline my-2 my-lg-0">
+        <input class="form-control mr-sm-2" id="searchInput" type="search" placeholder="Search" aria-label="Search">
+        <!-- <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button> -->
+      </form>
+    </div>
+    <div class="container">
+      <div class="row g-5" id="product-list"></div>
+      <div id="pagination-container" class="text-center mt-4"></div>
+    </div>
+  </section>
 
-    <?php
-    require_once '../config/db.php';
-    $sql = "SELECT id, title, image, excerpt, created_at FROM articles ORDER BY created_at DESC LIMIT 3"; 
-    $result = mysqli_query($conn, $sql);
+  <?php
+  require_once '../config/db.php';
+  $sql = "SELECT id, title, image, content , created_at FROM articles ORDER BY created_at DESC LIMIT 3";
+  $result = mysqli_query($conn, $sql);
 
-    if (!$result) {
-        die("Lỗi truy vấn: " . mysqli_error($conn));
-    }
+  if (!$result) {
+    die("Lỗi truy vấn: " . mysqli_error($conn));
+  }
 
-    $posts = [];
-    while ($row = mysqli_fetch_assoc($result)) {
-        $posts[] = $row;
-    }
-    ?>
+  $posts = [];
+  while ($row = mysqli_fetch_assoc($result)) {
+    $posts[] = $row;
+  }
+  ?>
 
-    <?php include './includes/footer.php'; ?>
+  <?php include './includes/footer.php'; ?>
+
 
     <a href="#" class="cd-top text-replace js-cd-top">
         <i class="fa-solid fa-angle-up"></i>

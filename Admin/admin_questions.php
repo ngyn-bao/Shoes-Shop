@@ -19,8 +19,8 @@
     <link rel="stylesheet" href="./assets/css/style.css" />
 </head>
 
-<body>
-
+<body class="bg-light">
+<?php include 'sidebar.php'; ?>
 
     <div class="container my-5">
         <h1 class="my-4">Câu hỏi từ khách hàng</h1>

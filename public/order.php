@@ -71,9 +71,10 @@
           <h4 class="mt-4">Payment</h4>
 
           <select id="paymentMethod" class="form-select mb-4">
-            <option value="COD">Cash on Delivery</option>
-            <option value="BANKING">Banking</option>
-            <option value="CARD">Visa / Mastercard</option>
+            <option value="code">Cash on Delivery</option>
+            <option value="bank_tranfer">Banking</option>
+            <option value="credit_card">Visa / Mastercard</option>
+            <option value="paypal">Paypal</option>
           </select>
 
           <button class="btn btn-dark w-100" id="btnOrder">
