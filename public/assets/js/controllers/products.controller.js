@@ -11,8 +11,8 @@ async function loadProducts(page = 1, limit = 6, category_id = null) {
 
     const result = res.data?.data;
     const products = result?.data || res.data?.data || []; // fallback cho API không phân trang
-    const pagination = result?.pagination || null;
-
+    const pagination = res.data?.pagination || null;
+    console.log(pagination);
     // --- Render banner (3 sản phẩm random, chỉ lần đầu) ---
     if (page === 1 && products.length > 0) {
       renderBanner(products);
