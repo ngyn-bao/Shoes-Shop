@@ -26,35 +26,37 @@ $total_faq = $conn->query("SELECT COUNT(*) AS total_faq FROM faq")->fetch_assoc(
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Shoes Admin Dashboard</title>
-
-    <link href="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0-beta19/dist/css/tabler.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css" rel="stylesheet">
-
+    <title>Admin Dashboard - Shoes Shop</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="icon" type="image/x-icon" href="./img/Admin-icon.png" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" />
+    <link href="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0-beta17/dist/css/tabler.min.css" rel="stylesheet" />
     <style>
         body {
-            background: #f4f6fa;
+            min-height: 100vh;
+            display: flex;
+            background-color: #f8f9fa;
         }
 
-        .stat-card {
+        /* Main content */
+        .main-content {
+            flex-grow: 1;
+            padding: 30px;
+        }
+
+        .card {
             cursor: pointer;
-            transition: 0.25s ease;
-            border-radius: 14px;
+            transition: 0.3s;
         }
 
-        .stat-card:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 12px 26px rgba(0, 0, 0, 0.12);
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
         }
 
-        .stat-icon {
-            font-size: 42px;
-            margin-bottom: 10px;
-        }
-
-        .sidebar-menu a.active {
-            background-color: rgba(255, 255, 255, 0.15);
-            border-radius: 8px;
+        .card-icon {
+            font-size: 2.5rem;
+            color: #0d6efd;
         }
     </style>
 </head>
