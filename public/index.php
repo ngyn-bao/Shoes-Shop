@@ -34,6 +34,7 @@
         <li class="nav-item"><a href="./index.php?category_id=2" class="nav-link">Women</a></li>
         <li class="nav-item"><a href="./index.php?category_id=3" class="nav-link">Kid</a></li>
         <li class="nav-item"><a href="./index.php?category_id=4" class="nav-link">Sport</a></li>
+        <li class="nav-item"><a href="./articlelist.php" class="nav-link">Blog</a></li>
       </ul>
     </div>
   </nav>
@@ -59,7 +60,7 @@
 
   <?php
   require_once '../config/db.php';
-  $sql = "SELECT article_id, title, image_url, content, created_at FROM articles ORDER BY created_at DESC";
+  $sql = "SELECT article_id, title, image_url, content , created_at FROM articles ORDER BY created_at DESC LIMIT 3"; // Giới hạn lấy 3 bài mới nhất cho đẹp trang chủ
   $result = mysqli_query($conn, $sql);
 
   if (!$result) {
@@ -71,56 +72,6 @@
     $posts[] = $row;
   }
   ?>
-
-  <section>
-    <h2 class="text-center fs-1 fw-normal">- Articles & News -</h2>
-
-    <!-- Search Bar -->
-    <section class="container my-4">
-      <div class="row justify-content-center">
-        <div class="col-lg-6 col-md-8">
-          <div class="input-group">
-            <span class="input-group-text bg-white border-end-0">
-              <i class="fas fa-search text-muted"></i>
-            </span>
-            <input type="text" id="searchInput" class="form-control border-start-0"
-              placeholder="Tìm kiếm bài viết..." autocomplete="off">
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <main class="container my-5">
-      <div class="row g-4" id="postsContainer">
-        <?php foreach ($posts as $post): ?>
-          <div class="col-md-4 post-card" data-title="<?= strtolower(htmlspecialchars($post['title'])) ?>"
-            data-excerpt="<?= strtolower(htmlspecialchars($post['content'])) ?>">
-            <div class="card h-100 shadow-sm">
-              <img src="../public/<?= htmlspecialchars($post['image_url']) ?>" class="card-img-top"
-                style="height:200px; object-fit:cover;" onerror="this.src='../public/img/no-image.jpg'">
-              <div class="card-body d-flex flex-column">
-                <h5 class="card-title"><?= htmlspecialchars($post['title']) ?></h5>
-                <p class="card-text text-muted flex-grow-1">
-                  <?= htmlspecialchars($post['content'] ?: 'Xem chi tiết...') ?>
-                </p>
-                <div class="mt-auto">
-                  <small class="text-muted">
-                    <?= date('d/m/Y', strtotime($post['created_at'])) ?>
-                  </small>
-                  <a href="articledetail.php?id=<?= $post['article_id'] ?>"
-                    class="btn btn-dark btn-sm d-block mt-2">Đọc tiếp</a>
-                </div>
-              </div>
-            </div>
-          </div>
-        <?php endforeach; ?>
-      </div>
-
-      <div id="noResults" class="text-center mt-5 d-none">
-        <p class="text-muted fs-4">Không tìm thấy bài viết nào.</p>
-      </div>
-    </main>
-  </section>
 
   <?php include './includes/footer.php'; ?>
 
