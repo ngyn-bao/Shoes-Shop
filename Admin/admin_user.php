@@ -1,10 +1,10 @@
 <?php
 include "../config/db.php"; // Kết nối DB
 
-// Lấy danh sách khách hàng
+// Lấy danh sách người dùng
 $query = $conn->query("SELECT user_id, full_name, email, phone, created_at FROM users ORDER BY created_at DESC");
 
-// Xóa khách hàng (nếu bạn dùng)
+// Xóa người dùng (nếu bạn dùng)
 if (isset($_GET['delete'])) {
     $id = intval($_GET['delete']);
     $conn->query("DELETE FROM users WHERE user_id = $id");
@@ -64,10 +64,10 @@ if (isset($_GET['delete'])) {
         <div class="page-wrapper">
             <div class="container-xl">
 
-                <h2 class="page-title my-4">👥 Danh sách khách hàng</h2>
+                <h2 class="page-title my-4">👥 Danh sách người dùng</h2>
 
                 <?php if (isset($_GET['deleted'])): ?>
-                    <div class="alert alert-success">Đã xoá khách hàng!</div>
+                    <div class="alert alert-success">Đã xoá người dùng!</div>
                 <?php endif; ?>
 
                 <div class="card">
