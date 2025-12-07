@@ -4,45 +4,78 @@
 <html lang="en">
 
 <head>
-    <title>Shoes Shop</title>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <link rel="icon" type="image/x-icon" href="./img/favicon.ico">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
+  <title>Shoes Shop</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <link rel="icon" type="image/x-icon" href="./img/favicon.ico">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
 
-    <link rel="stylesheet" href="./assets/css/OwlCarousel/owl.carousel.min.css" />
-    <link rel="stylesheet" href="./assets/css/OwlCarousel/owl.theme.default.min.css" />
+  <link rel="stylesheet" href="./assets/css/OwlCarousel/owl.carousel.min.css" />
+  <link rel="stylesheet" href="./assets/css/OwlCarousel/owl.theme.default.min.css" />
 
-    <link rel="stylesheet" href="./assets/css/style.css" />
+  <link rel="stylesheet" href="./assets/css/style.css" />
 
-    <style>
-        body {
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh; 
-        }
-        footer {
-            margin-top: auto;
-        }
-    </style>
+  <style>
+    body {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    footer {
+      margin-top: auto;
+    }
+
+    .group-category:hover .dropdown-menu {
+      display: block;
+      margin-top: 0;
+    }
+
+    .secondary-nav .dropdown-menu {
+      border: none;
+      border-radius: 8px;
+      padding: 10px 0;
+    }
+
+    .secondary-nav .dropdown-item {
+      padding: 8px 20px;
+      transition: 0.2s;
+    }
+
+    .secondary-nav .dropdown-item:hover {
+      background-color: #f8f9fa;
+      color: #000;
+    }
+  </style>
 </head>
 
 <body>
-    <?php include './includes/header.php'; ?>
+  <?php include './includes/header.php'; ?>
 
   <nav class="secondary-nav">
     <div class="container">
-      <ul class="d-flex align-items-center gap-4">
+      <ul class="d-flex align-items-center gap-4 list-unstyled m-0">
+
         <li class="nav-item">
           <a href="./index.php" class="nav-link active">Home</a>
         </li>
-        <li class="nav-item"><a href="./index.php?category_id=1" class="nav-link">Men</a></li>
-        <li class="nav-item"><a href="./index.php?category_id=2" class="nav-link">Women</a></li>
-        <li class="nav-item"><a href="./index.php?category_id=3" class="nav-link">Kid</a></li>
-        <li class="nav-item"><a href="./index.php?category_id=4" class="nav-link">Sport</a></li>
+
+        <li class="nav-item dropdown group-category">
+          <a href="#" class="nav-link dropdown-toggle">Category</a>
+
+          <ul class="dropdown-menu shadow">
+            <li><a class="dropdown-item" href="./index.php?category_id=1">Men</a></li>
+            <li><a class="dropdown-item" href="./index.php?category_id=2">Women</a></li>
+            <li><a class="dropdown-item" href="./index.php?category_id=3">Kid</a></li>
+            <li><a class="dropdown-item" href="./index.php?category_id=4">Sport</a></li>
+          </ul>
+        </li>
+
         <li class="nav-item"><a href="./articlelist.php" class="nav-link">Blog</a></li>
+
+        <li class="nav-item"><a href="./faq.php" class="nav-link">Faq</a></li>
       </ul>
     </div>
   </nav>
@@ -84,20 +117,20 @@
   <?php include './includes/footer.php'; ?>
 
 
-    <a href="#" class="cd-top text-replace js-cd-top">
-        <i class="fa-solid fa-angle-up"></i>
-    </a>
+  <a href="#" class="cd-top text-replace js-cd-top">
+    <i class="fa-solid fa-angle-up"></i>
+  </a>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="./assets/js/OwlCarousel/owl.carousel.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.7.7/axios.min.js"></script>
-    <script src="./assets/js/helpers/util.js"></script>
-    <script src="./assets/js/helpers/main.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="./assets/js/OwlCarousel/owl.carousel.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.7.7/axios.min.js"></script>
+  <script src="./assets/js/helpers/util.js"></script>
+  <script src="./assets/js/helpers/main.js"></script>
 
-    <script src="./assets/js/controllers/products.controller.js"></script>
-    
-    
+  <script src="./assets/js/controllers/products.controller.js"></script>
+
+
 </body>
 
 </html>

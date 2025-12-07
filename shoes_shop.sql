@@ -144,6 +144,23 @@ CREATE TABLE contacts (
 -- ===========================================================
 -- BẢNG FAQ (HỎI ĐÁP)
 -- ===========================================================
+
+CREATE TABLE faq_categories (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE faq_questions (
+    question_id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    category_id INT NULL,
+    question TEXT NOT NULL,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+
+    FOREIGN KEY (user_id) REFERENCES users(user_id),
+    FOREIGN KEY (category_id) REFERENCES faq_categories(id)
+);
+
 CREATE TABLE faq (
     faq_id INT AUTO_INCREMENT PRIMARY KEY,
     category_id INT NOT NULL,
@@ -153,6 +170,7 @@ CREATE TABLE faq (
 
     FOREIGN KEY (category_id) REFERENCES faq_categories(id)
 );
+
 
 -- --------------------------------------------------------
 -- Table: articles
@@ -308,21 +326,6 @@ INSERT INTO comments (article_id, name, email, content) VALUES
 CREATE INDEX idx_slug ON articles(slug);
 CREATE INDEX idx_article_comments ON comments(article_id);
 
-CREATE TABLE faq_categories (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(255) NOT NULL
-);
-
-CREATE TABLE faq_questions (
-    question_id INT AUTO_INCREMENT PRIMARY KEY,
-    user_id INT NOT NULL,
-    category_id INT NULL,
-    question TEXT NOT NULL,
-    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-
-    FOREIGN KEY (user_id) REFERENCES users(user_id),
-    FOREIGN KEY (category_id) REFERENCES faq_categories(id)
-);
 
 INSERT INTO categories (category_name, description) VALUES
 ('Men', 'Giày thời trang dành cho nam giới'),
