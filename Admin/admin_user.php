@@ -4,8 +4,9 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Quản lý Bình luận - Admin</title>
+    <title>Quản lý Người dùng - Admin</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="./img/admin-icon.png">
 </head>
 
 <body class="bg-light">
