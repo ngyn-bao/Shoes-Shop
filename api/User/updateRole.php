@@ -3,9 +3,9 @@ header("Content-Type: application/json");
 require_once __DIR__ . "/../../config/db.php";
 
 $user_id = intval($_POST["user_id"]);
-$role = $_POST["role"] ?? "user";
+$role = $_POST["role"] ?? "customer";
 
-if (!in_array($role, ["user", "admin"])) {
+if (!in_array($role, ["customer", "admin"])) {
     echo json_encode(["success" => false, "message" => "Invalid role"]);
     exit;
 }
