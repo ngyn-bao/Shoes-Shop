@@ -6,10 +6,10 @@ require_once __DIR__ . '/../../models/product.model.php';
 $productModel = new Product($conn);
 
 // Nhận page & limit từ query string (nếu có)
-$page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
-$limit = isset($_GET['limit']) ? (int)$_GET['limit'] : 6;
-$category_id = $_GET["category_id"] ?? 1;
-$search = isset($_GET['search']) ? $_GET['search'] : "";
+$page = isset($_GET['page']) ? (int)$_GET['page'] : null;
+$limit = isset($_GET['limit']) ? (int)$_GET['limit'] : null;
+$category_id = $_GET["category_id"] ?? null;
+$search = isset($_GET['search']) ? $_GET['search'] : null;
 
 try {
     $result = $productModel->getAll($page, $limit, $category_id, $search);
