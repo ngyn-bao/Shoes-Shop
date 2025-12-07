@@ -1,7 +1,6 @@
 <?php 
 require_once '../config/db.php'; 
 
-// Lấy dữ liệu trước để tách logic khỏi giao diện
 $sql = "SELECT c.*, a.title 
         FROM comments c 
         JOIN articles a ON c.article_id = a.id 
@@ -21,7 +20,7 @@ if ($result) {
   <meta charset="UTF-8">
   <title>Quản lý Bình luận - Admin</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  
+  <link rel="icon" type="image/x-icon" href="./img/favicon.ico">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
   <style>
