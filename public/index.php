@@ -18,14 +18,11 @@
     <link rel="stylesheet" href="./assets/css/style.css" />
 
     <style>
-        /* Biến body thành Flex container */
         body {
             display: flex;
             flex-direction: column;
-            min-height: 100vh; /* Chiều cao tối thiểu bằng 100% màn hình */
+            min-height: 100vh; 
         }
-
-        /* Đẩy footer xuống dưới cùng */
         footer {
             margin-top: auto;
         }
