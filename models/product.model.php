@@ -13,17 +13,50 @@ class Product
     // ==========================
     // GET ALL PRODUCTS (with optional pagination)
     // ==========================
+    // public function getAll($page = null, $limit = null, $category_id = null, $search = null)
+    // {
+
+    //     $offset = ($page && $limit) ? ($page - 1) * $limit : 0;
+
+    //     $query = "
+    //         SELECT p.*, pi.image_url
+    //         FROM products p
+    //         LEFT JOIN product_images pi 
+    //             ON p.product_id = pi.product_id AND pi.is_main = 1
+    //     ";
+
+    //     $where = [];
+
+    //     if ($category_id !== null && intval($category_id) > 0) {
+    //         $where[] = "p.category_id = " . intval($category_id);
+    //     }
+
+    //     if ($search !== null && $search !== "") {
+    //         $search = $this->conn->real_escape_string($search);
+    //         $where[] = "p.product_name LIKE '%$search%'";
+    //     }
+
+    //     if (!empty($where)) {
+    //         $query .= " WHERE " . implode(" AND ", $where);
+    //     }
+
+    //     if ($page && $limit) {
+    //         $query .= " LIMIT $limit OFFSET $offset";
+    //     }
+
+    //     $result = mysqli_query($this->conn, $query);
+
+    //     $data = [];
+    //     while ($row = mysqli_fetch_assoc($result)) {
+
+    //         // image_url là link online → giữ nguyên
+    //         $data[] = $row;
+    //     }
+    //     return $data;
+    // }
     public function getAll($page = null, $limit = null, $category_id = null, $search = null)
     {
-
         $offset = ($page && $limit) ? ($page - 1) * $limit : 0;
-
-        $query = "
-            SELECT p.*, pi.image_url
-            FROM products p
-            LEFT JOIN product_images pi 
-                ON p.product_id = pi.product_id AND pi.is_main = 1
-        ";
 
         $where = [];
 
@@ -36,24 +69,50 @@ class Product
             $where[] = "p.product_name LIKE '%$search%'";
         }
 
+        $whereSql = "";
         if (!empty($where)) {
-            $query .= " WHERE " . implode(" AND ", $where);
+            $whereSql = " WHERE " . implode(" AND ", $where);
         }
+
+        // ============================
+        // LẤY TOTAL (không LIMIT)
+        // ============================
+        $totalQuery = "
+        SELECT COUNT(*) as total
+        FROM products p
+        $whereSql
+    ";
+        $totalResult = mysqli_query($this->conn, $totalQuery);
+        $total = mysqli_fetch_assoc($totalResult)['total'];
+
+        // ============================
+        // LẤY DATA (có LIMIT)
+        // ============================
+        $query = "
+        SELECT p.*, pi.image_url
+        FROM products p
+        LEFT JOIN product_images pi 
+            ON p.product_id = pi.product_id AND pi.is_main = 1
+        $whereSql
+    ";
 
         if ($page && $limit) {
             $query .= " LIMIT $limit OFFSET $offset";
         }
 
         $result = mysqli_query($this->conn, $query);
-
         $data = [];
-        while ($row = mysqli_fetch_assoc($result)) {
 
-            // image_url là link online → giữ nguyên
+        while ($row = mysqli_fetch_assoc($result)) {
             $data[] = $row;
         }
-        return $data;
+
+        return [
+            "data" => $data,
+            "total" => $total
+        ];
     }
+
 
 
 

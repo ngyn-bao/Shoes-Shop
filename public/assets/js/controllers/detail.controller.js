@@ -96,10 +96,22 @@ async function addToCart() {
   }
 }
 
+function slideRelated(arr, start, end) {
+  return arr.slice(start, end);
+}
+
 async function loadRelated() {
   try {
     const res = await axios.get("../api/Product/getAllProducts.php");
-    const products = res.data.data.slice(0, 4);
+    console.log(res);
+    let start = Math.floor(Math.random() * 10);
+    let end = Math.floor(Math.random() * 10);
+
+    if (start >= end) {
+      start = 0;
+      end = 4;
+    }
+    const products = slideRelated(res.data.data.data, start, end);
 
     relatedEl.innerHTML = products
       .map(

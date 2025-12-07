@@ -187,7 +187,7 @@ $api = '../api/Product/';
                 const tbody = document.querySelector('#productsTable tbody');
                 tbody.innerHTML = '';
 
-                json.data.forEach(p => {
+                json.data.data.forEach(p => {
                     const og = Number(p.price).toLocaleString('vi-VN');
                     const sale = p.discount > 0 ? Number(p.discount).toLocaleString('vi-VN') : null;
 

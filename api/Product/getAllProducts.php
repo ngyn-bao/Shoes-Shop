@@ -13,9 +13,15 @@ $search = isset($_GET['search']) ? $_GET['search'] : null;
 
 try {
     $result = $productModel->getAll($page, $limit, $category_id, $search);
+
     echo json_encode([
         "success" => true,
-        "data" => $result
+        "data" => $result,
+        "pagination" => [
+            "page" => $page,
+            "limit" => $limit,
+            "total" => $result["total"]
+        ]
     ]);
 } catch (Exception $e) {
     echo json_encode([
