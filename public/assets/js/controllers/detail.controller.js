@@ -105,18 +105,17 @@ async function loadRelated() {
     const res = await axios.get("../api/Product/getAllProducts.php");
     console.log(res);
     let start = Math.floor(Math.random() * 10);
-    let end = Math.floor(Math.random() * 10);
+    let end = 4;
 
     if (start >= end) {
       start = 0;
-      end = 4;
     }
     const products = slideRelated(res.data.data.data, start, end);
 
     relatedEl.innerHTML = products
       .map(
         (p) => `
-            <div class="col-3">
+            <div class="col-md-3">
               <div class="card text-center p-3">
                 <img src="${p.image_url}" class="card-img-top" />
                 <h5 class="mt-2">${p.product_name}</h5>

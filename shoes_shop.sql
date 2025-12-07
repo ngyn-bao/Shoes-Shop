@@ -320,3 +320,71 @@ CREATE TABLE faq_questions (
     FOREIGN KEY (user_id) REFERENCES users(user_id),
     FOREIGN KEY (category_id) REFERENCES faq_categories(id)
 );
+
+INSERT INTO categories (category_name, description) VALUES
+('Men', 'Giày thời trang dành cho nam giới'),
+('Women', 'Giày thời trang dành cho nữ giới'),
+('Kid', 'Giày thời trang dành cho trẻ em'),
+('Sport', 'Giày thể thao');
+
+INSERT INTO brands (brand_name, country) VALUES
+('Nike', 'USA'),
+('Adidas', 'Germany'),
+('Puma', 'Germany'),
+('New Balance', 'USA'),
+('Converse', 'USA'),
+('Vans', 'USA'),
+('Asics', 'Japan'),
+('Reebok', 'UK');
+
+
+INSERT INTO products (product_name, category_id, brand_id, price, discount, description, stock) VALUES
+('Nike Air Force 1 White', 1, 1, 2500000, 10, 'Mẫu sneaker huyền thoại, thiết kế basic dễ phối đồ.', 50),
+('Adidas Ultraboost 22', 2, 2, 3900000, 5, 'Giày chạy bộ cao cấp với bộ đệm Boost êm ái.', 30),
+('Puma Training Fuse 2', 3, 3, 2200000, 0, 'Giày training chuyên dành cho gym và crossfit.', 20),
+('Nike Kyrie Flytrap 6', 4, 1, 2700000, 15, 'Giày bóng rổ nhẹ, linh hoạt dành cho vị trí guard.', 15),
+('Adidas Predator Freak .3', 1, 2, 2100000, 0, 'Giày đá bóng sân cỏ nhân tạo, hỗ trợ kiểm soát bóng.', 25),
+('Vans Old Skool Black White', 1, 6, 1600000, 0, 'Mẫu giày skate cổ điển với đường jazz stripe đặc trưng.', 40),
+('Converse Chuck Taylor 70s High', 2, 5, 1900000, 0, 'Huyền thoại Chuck 70s cao cổ, form đẹp, chất liệu cao cấp.', 35),
+('Asics Gel Nimbus 25', 2, 7, 4500000, 10, 'Giày chạy bộ cao cấp nhất của Asics, siêu êm.', 18),
+('New Balance 574 Grey', 3, 4, 2300000, 5, 'Dòng sneaker casual cổ điển, màu xám iconic.', 28),
+('Reebok Nano X3', 4, 8, 3200000, 0, 'Giày tập gym đa năng dành cho việc nâng tạ và cardio.', 22);
+
+
+INSERT INTO product_images (product_id, image_url, is_main) VALUES
+-- Nike Air Force 1 White
+(1, 'https://static.nike.com/a/images/t_web_pdp_936_v2/f_auto/b7d9211c-26e7-431a-ac24-b0540fb3c00f/AIR+FORCE+1+%2707.png', TRUE),
+(1, 'https://sneakerholicvietnam.vn/wp-content/uploads/2021/07/nike-air-force-1-low-white-315115-112-2.jpg', FALSE),
+(1, 'https://authentic-shoes.com/wp-content/uploads/2023/05/Screenshot_2023.08.16_13.12.15.003.png', FALSE),
+
+-- Adidas Ultraboost 22
+(2, 'https://bizweb.dktcdn.net/thumb/large/100/413/756/products/ultraboost-22-shoes-black-gx9783-1671959897384.jpg?v=1675314269240', TRUE),
+(2, 'https://cdn-images.farfetch-contents.com/19/41/92/92/19419292_42685107_1000.jpg', FALSE),
+
+-- Puma Training Fuse 2
+(3, 'https://www.gearpatrol.com/wp-content/uploads/sites/2/2022/10/1666363453-puma-fuse-2-0-embed-1666363443-jpg.webp', TRUE),
+
+-- Nike Kyrie Flytrap 6
+(4, 'https://sneakerdaily.vn/wp-content/uploads/2023/09/giay-nike-kyrie-flytrap-6-ep-black-white-dm1126-001.jpg', TRUE),
+(4, 'https://pos.nvncdn.com/80cfbf-41716/ps/20221125_xmiYGePwuSCGE74JPiWbX7Dv.jpg?v=1673515210', FALSE),
+
+-- Adidas Predator Freak .3
+(5, 'https://product.hstatic.net/1000061481/product/4da7c5eeeacc411d9b7b0b5c8f948206_08a0733132fb40d290330804d0bdec80_1024x1024.jpg', TRUE),
+
+-- Vans Old Skool Black White
+(6, 'https://bizweb.dktcdn.net/100/140/774/products/vans-old-skool-black-white-vn000d3hy28-2.jpg?v=1625905148527', TRUE),
+(6, 'https://bizweb.dktcdn.net/100/140/774/files/giay-vans-skate-old-skool-black-white-vn0a5fcby28-2.jpg?v=1691834912747', FALSE),
+
+-- Converse Chuck Taylor 70s High
+(7, 'https://www.converse.vn/media/catalog/product/0/8/0882-CON162050C000005-1.jpg', TRUE),
+
+-- Asics Gel Nimbus 25
+(8, 'https://vietstore365.vn/uploads/f_648049e312c9b5be592031e8/609781ca3bf8556d62b5927d9.png', TRUE),
+(8, 'https://vietstore365.vn/uploads/f_648049e312c9b5be592031e8/81828cc32aa46e7d5d30637d7.jpg', FALSE),
+
+-- New Balance 574 Grey
+(9, 'https://saigonsneaker.com/wp-content/uploads/2020/12/574-3.jpg', TRUE),
+
+-- Reebok Nano X3
+(10, 'https://cdn-images.farfetch-contents.com/21/31/59/10/21315910_51202685_600.jpg', TRUE),
+(10, 'https://images-na.ssl-images-amazon.com/images/I/717xN7y3PfL.jpg', FALSE);
