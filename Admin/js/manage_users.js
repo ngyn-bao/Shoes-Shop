@@ -15,9 +15,9 @@ async function loadUsers() {
         <td>${u.phone}</td>
         <td>
           <select class="form-select role-select" data-id="${u.user_id}">
-            <option value="user" ${
-              u.role === "user" ? "selected" : ""
-            }>User</option>
+            <option value="customer" ${
+              u.role === "customer" ? "selected" : ""
+            }>Customer</option>
             <option value="admin" ${
               u.role === "admin" ? "selected" : ""
             }>Admin</option>

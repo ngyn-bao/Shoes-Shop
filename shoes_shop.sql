@@ -146,9 +146,12 @@ CREATE TABLE contacts (
 -- ===========================================================
 CREATE TABLE faq (
     faq_id INT AUTO_INCREMENT PRIMARY KEY,
+    category_id INT NOT NULL,
     question TEXT NOT NULL,
-    answer TEXT,
-    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+    answer TEXT NOT NULL,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+
+    FOREIGN KEY (category_id) REFERENCES faq_categories(id)
 );
 
 -- --------------------------------------------------------

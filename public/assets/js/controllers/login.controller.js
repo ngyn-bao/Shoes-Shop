@@ -38,7 +38,7 @@ btnLogin.addEventListener("click", async () => {
 
       if (response.data.user.role === "admin") {
         setTimeout(() => {
-          window.location.href = "../Admin/index.html";
+          window.location.href = "../Admin/index.php";
         }, 800);
       } else {
         setTimeout(() => {
