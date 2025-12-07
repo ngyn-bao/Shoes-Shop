@@ -8,39 +8,12 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
   <link rel="icon" type="image/x-icon" href="./img/Admin-icon.png" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" />
+  <link href="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0-beta17/dist/css/tabler.min.css" rel="stylesheet"/>
   <style>
     body {
       min-height: 100vh;
       display: flex;
       background-color: #f8f9fa;
-    }
-
-    /* Sidebar */
-    .sidebar {
-      width: 220px;
-      background-color: #343a40;
-      color: #fff;
-      flex-shrink: 0;
-    }
-
-    .sidebar h2 {
-      padding: 20px;
-      text-align: center;
-      font-size: 1.5rem;
-      border-bottom: 1px solid #495057;
-    }
-
-    .sidebar a {
-      display: block;
-      padding: 15px 20px;
-      color: #fff;
-      text-decoration: none;
-      border-bottom: 1px solid #495057;
-      transition: 0.2s;
-    }
-
-    .sidebar a:hover {
-      background-color: #495057;
     }
 
     /* Main content */

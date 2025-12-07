@@ -3,176 +3,188 @@
 <?php $current_page = basename($_SERVER['PHP_SELF']); ?>
 
 <style>
-    /* =========================================
-       1. CẤU HÌNH CHUNG 
-       ========================================= */
-    body {
+    :root {
+        --sidebar-width: 260px;
+        --sidebar-collapsed-width: 80px;
+        --sidebar-bg: #182433;       
+        --sidebar-hover: #232e3c;    
+        --sidebar-active: #0054a6;   
+        --text-color: #dce1e7;       
+    }
+
+    body, .page {
+        display: flex !important;
+        flex-direction: row !important;
         min-height: 100vh;
-        display: flex;
-        background-color: #f8f9fa;
         margin: 0;
-        font-family: system-ui, -apple-system, sans-serif;
+        background-color: #f4f6fa;
+        overflow-x: hidden; 
+        
+    }
+
+    /* =========================================
+       2. STYLE SIDEBAR (DESKTOP)
+       ========================================= */
+    .sidebar {
+        width: var(--sidebar-width);
+        background-color: var(--sidebar-bg);
+        color: var(--text-color);
+        flex-shrink: 0 !important; /* KHÔNG bao giờ được co lại */
+        display: flex;
+        flex-direction: column;
+        transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        z-index: 1050;
+        border-right: 1px solid rgba(255,255,255,0.1);
+        position: sticky; /* Dính chặt khi cuộn */
+        top: 0;
+        height: 100vh;
+        overflow-y: auto;
         overflow-x: hidden;
     }
 
-    .sidebar {
-        background-color: #343a40;
-        color: #fff;
-        flex-shrink: 0;
-        min-height: 100vh;
-        display: flex;
-        flex-direction: column;
-        transition: all 0.3s ease;
-        z-index: 1000;
-        white-space: nowrap;
-        overflow: hidden;
-    }
-
-    /* Header của Sidebar */
     .sidebar-header {
-        height: 70px;
+        height: 64px;
         display: flex;
         align-items: center;
-        padding: 0 20px;
-        border-bottom: 1px solid #495057;
-        background-color: #212529;
+        padding: 0 24px;
+        border-bottom: 1px solid rgba(255,255,255,0.1);
+        background-color: rgba(0,0,0,0.1);
         justify-content: space-between;
+        white-space: nowrap;
     }
 
-    .sidebar-header .brand-text {
+    .brand-text {
+        font-size: 1.1rem;
+        font-weight: 700;
         color: #fff;
         text-decoration: none;
-        font-weight: bold;
-        font-size: 1.25rem;
-        transition: opacity 0.2s;
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
     }
 
     #sidebarToggle {
-        background: none;
+        background: transparent;
         border: none;
-        color: #fff;
-        font-size: 1.5rem;
+        color: rgba(255,255,255,0.7);
+        font-size: 1.4rem;
         cursor: pointer;
-        padding: 0;
-    }
-
-    .sidebar-header a:hover,
-    .sidebar-header button:hover {
-        background: none !important;
-        color: inherit !important;
-    }
-
-    /* Link Menu */
-    .sidebar a.nav-link {
+        padding: 4px;
+        transition: 0.2s;
         display: flex;
         align-items: center;
-        padding: 15px 25px;
-        color: #adb5bd;
+        justify-content: center;
+    }
+    #sidebarToggle:hover { color: #fff; }
+
+    /* Menu Links */
+    .nav-link {
+        display: flex;
+        align-items: center;
+        padding: 14px 24px;
+        color: #aebac6;
         text-decoration: none;
-        border-bottom: 1px solid #495057;
-        height: 55px;
+        transition: all 0.2s ease;
+        border-left: 3px solid transparent;
+        white-space: nowrap;
+        font-weight: 500;
+        font-size: 0.95rem;
     }
 
-    .sidebar a.nav-link:hover {
-        background-color: #495057;
+    .nav-link i {
+        font-size: 1.2rem;
+        width: 24px;
+        margin-right: 12px;
+        text-align: center;
+        display: inline-block;
+    }
+
+    .nav-link:hover {
+        background-color: var(--sidebar-hover);
         color: #fff;
     }
 
-    .sidebar a.nav-link.active {
-        background-color: #0d6efd;
-        color: white;
+    /* Active State */
+    .nav-link.active {
+        background-color: rgba(32, 107, 196, 0.1);
+        color: #4299e1;
+        border-left-color: #4299e1;
     }
 
-    .sidebar a.nav-link i {
-        font-size: 1.25rem;
-        min-width: 30px;
-        margin-right: 10px;
-        text-align: center;
-    }
-
-    .sidebar .logout-link {
+    /* Logout Button */
+    .logout-link {
         margin-top: auto;
-        background-color: #212529;
+        border-top: 1px solid rgba(255,255,255,0.1);
+        color: #ff6b6b;
     }
-
-    /* Nội dung chính */
-    .main-content {
-        flex-grow: 1;
-        min-width: 0;
-        padding: 30px;
-        background-color: #f8f9fa;
-        transition: margin-left 0.3s ease;
+    .logout-link:hover {
+        background-color: rgba(255, 107, 107, 0.1);
+        color: #ff8787;
     }
 
     /* =========================================
-       2. LOGIC CHO DESKTOP (Màn hình > 992px)
+       3. TRẠNG THÁI THU NHỎ (DESKTOP)
        ========================================= */
     @media (min-width: 992px) {
-        .sidebar {
-            width: 260px;
-        }
-
         body.sidebar-collapsed .sidebar {
-            width: 80px;
+            width: var(--sidebar-collapsed-width);
         }
 
-        /* Ẩn chữ và Logo khi thu nhỏ */
-        body.sidebar-collapsed .sidebar .link-text,
-        body.sidebar-collapsed .sidebar .brand-text {
+        body.sidebar-collapsed .brand-text,
+        body.sidebar-collapsed .link-text {
+            display: none !important;
             opacity: 0;
-            pointer-events: none;
-            display: none;
         }
 
-        /* Căn giữa Icon khi thu nhỏ */
-        body.sidebar-collapsed .sidebar a.nav-link {
-            justify-content: center;
-            padding-left: 0;
-            padding-right: 0;
-        }
-
-        body.sidebar-collapsed .sidebar a.nav-link i {
-            margin-right: 0;
-            font-size: 1.5rem;
-        }
-
-        /* Căn giữa nút 3 gạch khi thu nhỏ */
         body.sidebar-collapsed .sidebar-header {
             justify-content: center;
             padding: 0;
         }
+
+        body.sidebar-collapsed .nav-link {
+            justify-content: center;
+            padding: 14px 0;
+            border-left: none;
+            border-right: 3px solid transparent; /* Đổi viền sang phải */
+        }
+
+        body.sidebar-collapsed .nav-link i {
+            margin-right: 0;
+            font-size: 1.4rem;
+        }
+        
+        body.sidebar-collapsed .nav-link.active {
+            border-right-color: #4299e1;
+        }
     }
 
     /* =========================================
-       3. LOGIC CHO MOBILE (Màn hình < 992px)
+       4. TRẠNG THÁI MOBILE (< 992px)
        ========================================= */
     @media (max-width: 991.98px) {
-        body {
-            display: block;
-        }
-
         .sidebar {
             position: fixed;
-            top: 0;
             left: 0;
+            top: 0;
             bottom: 0;
-            width: 260px;
-            transform: translateX(-100%);
+            transform: translateX(-100%); /* Ẩn sidebar */
+            width: var(--sidebar-width);
+            box-shadow: none;
         }
 
+        /* Khi mở menu trên mobile */
         body.sidebar-collapsed .sidebar {
             transform: translateX(0);
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 0 50px rgba(0,0,0,0.5);
         }
 
-        .main-content {
-            width: 100%;
-            padding: 15px;
-        }
-
-        body.sidebar-collapsed .main-content {
-            opacity: 0.3;
-            pointer-events: none;
+        /* Overlay làm tối nền */
+        body.sidebar-collapsed::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 1040;
+            backdrop-filter: blur(2px);
         }
     }
 </style>
@@ -183,36 +195,35 @@
         <button id="sidebarToggle"><i class="bi bi-list"></i></button>
     </div>
 
-    <a href="admin_user.php" class="nav-link <?= ($current_page == 'admin_user.php') ? 'active' : '' ?>"
-        title="Người dùng">
-        <i class="bi bi-person"></i> <span class="link-text">Quản lý người dùng</span>
-    </a>
+    <div style="flex: 1; display: flex; flex-direction: column; overflow-y: auto;">
+        <a href="admin_user.php" class="nav-link <?= ($current_page == 'admin_user.php') ? 'active' : '' ?>" title="Người dùng">
+            <i class="bi bi-person"></i> <span class="link-text">Quản lý người dùng</span>
+        </a>
 
-    <a href="products.php" class="nav-link <?= ($current_page == 'products.php') ? 'active' : '' ?>" title="Sản phẩm">
-        <i class="bi bi-box-seam"></i> <span class="link-text">Quản lý sản phẩm</span>
-    </a>
+        <a href="products.php" class="nav-link <?= ($current_page == 'products.php') ? 'active' : '' ?>" title="Sản phẩm">
+            <i class="bi bi-box-seam"></i> <span class="link-text">Quản lý sản phẩm</span>
+        </a>
 
-    <a href="orders.php" class="nav-link <?= ($current_page == 'orders.php') ? 'active' : '' ?>" title="Đơn hàng">
-        <i class="bi bi-bag"></i> <span class="link-text">Quản lý đơn hàng</span>
-    </a>
+        <a href="orders.php" class="nav-link <?= ($current_page == 'orders.php') ? 'active' : '' ?>" title="Đơn hàng">
+            <i class="bi bi-bag"></i> <span class="link-text">Quản lý đơn hàng</span>
+        </a>
 
-    <a href="contacts.php" class="nav-link <?= ($current_page == 'contacts.php') ? 'active' : '' ?>" title="Liên hệ">
-        <i class="bi bi-envelope"></i> <span class="link-text">Quản lý liên hệ</span>
-    </a>
+        <a href="contacts.php" class="nav-link <?= ($current_page == 'contacts.php') ? 'active' : '' ?>" title="Liên hệ">
+            <i class="bi bi-envelope"></i> <span class="link-text">Quản lý liên hệ</span>
+        </a>
 
-    <a href="ArticleIndex.php" class="nav-link <?= ($current_page == 'ArticleIndex.php') ? 'active' : '' ?>"
-        title="Bài viết">
-        <i class="bi bi-newspaper"></i> <span class="link-text">Quản lý bài báo</span>
-    </a>
+        <a href="ArticleIndex.php" class="nav-link <?= ($current_page == 'ArticleIndex.php') ? 'active' : '' ?>" title="Bài viết">
+            <i class="bi bi-newspaper"></i> <span class="link-text">Quản lý bài báo</span>
+        </a>
 
-    <a href="admin_faq.php" class="nav-link <?= ($current_page == 'admin_faq.php') ? 'active' : '' ?>" title="FAQ">
-        <i class="bi bi-question-lg"></i> <span class="link-text">Quản lý FAQ</span>
-    </a>
+        <a href="admin_faq.php" class="nav-link <?= ($current_page == 'admin_faq.php') ? 'active' : '' ?>" title="FAQ">
+            <i class="bi bi-question-lg"></i> <span class="link-text">Quản lý FAQ</span>
+        </a>
 
-    <a href="admin_questions.php" class="nav-link <?= ($current_page == 'admin_questions.php') ? 'active' : '' ?>"
-        title="Câu hỏi">
-        <i class="bi bi-chat-dots"></i> <span class="link-text">Quản lý câu hỏi</span>
-    </a>
+        <a href="admin_questions.php" class="nav-link <?= ($current_page == 'admin_questions.php') ? 'active' : '' ?>" title="Câu hỏi">
+            <i class="bi bi-chat-dots"></i> <span class="link-text">Quản lý câu hỏi</span>
+        </a>
+    </div>
 
     <a href="#" id="btnLogout" class="nav-link logout-link" title="Đăng xuất">
         <i class="bi bi-door-closed"></i> <span class="link-text">Logout</span>
@@ -224,12 +235,14 @@
         const toggleBtn = document.getElementById('sidebarToggle');
         const body = document.body;
 
+        // 1. Toggle Button
         toggleBtn.addEventListener('click', (e) => {
             e.stopPropagation();
             body.classList.toggle('sidebar-collapsed');
             localStorage.setItem('sidebar-collapsed', body.classList.contains('sidebar-collapsed'));
         });
 
+        // 2. Click outside to close (Mobile)
         document.addEventListener('click', (e) => {
             if (window.innerWidth < 992 &&
                 body.classList.contains('sidebar-collapsed') &&
@@ -239,59 +252,41 @@
             }
         });
 
+        // 3. Restore State (Desktop)
         if (window.innerWidth >= 992) {
             const isCollapsed = localStorage.getItem('sidebar-collapsed') === 'true';
             if (isCollapsed) body.classList.add('sidebar-collapsed');
         }
 
+        // 4. Swipe Logic
         let startX = 0;
         let endX = 0;
 
         function handleGesture() {
             if (window.innerWidth >= 992) return;
-
             const swipeDistance = endX - startX;
-            const threshold = 100; // Khoảng cách tối thiểu để nhận diện quẹt
+            const threshold = 150;
 
-            console.log(`Bắt đầu: ${startX}, Khoảng cách: ${swipeDistance}`);
-
-            // A. QUẸT PHẢI (MỞ MENU) 
+            // Swipe Right (Open)
             if (swipeDistance > threshold) {
-                console.log("-> MỞ MENU!");
                 if (!body.classList.contains('sidebar-collapsed')) {
                     body.classList.add('sidebar-collapsed');
                 }
             }
-
-            // B. QUẸT TRÁI (ĐÓNG MENU)
+            // Swipe Left (Close)
             if (swipeDistance < -threshold) {
-                console.log("-> ĐÓNG MENU!");
                 if (body.classList.contains('sidebar-collapsed')) {
                     body.classList.remove('sidebar-collapsed');
                 }
             }
         }
 
-        // Cảm ứng
-        document.addEventListener('touchstart', e => {
-            startX = e.changedTouches[0].screenX;
-        }, { passive: true });
+        document.addEventListener('touchstart', e => { startX = e.changedTouches[0].screenX; }, { passive: true });
+        document.addEventListener('touchend', e => { endX = e.changedTouches[0].screenX; handleGesture(); }, { passive: true });
+        document.addEventListener('mousedown', e => { startX = e.clientX; });
+        document.addEventListener('mouseup', e => { endX = e.clientX; handleGesture(); });
 
-        document.addEventListener('touchend', e => {
-            endX = e.changedTouches[0].screenX;
-            handleGesture();
-        }, { passive: true });
-
-        // Chuột
-        document.addEventListener('mousedown', e => {
-            startX = e.clientX;
-        });
-
-        document.addEventListener('mouseup', e => {
-            endX = e.clientX;
-            handleGesture();
-        });
-
+        // 5. Logout Logic
         document.body.addEventListener("click", async (e) => {
             const target = e.target.closest("#btnLogout");
             if (target) {
