@@ -54,7 +54,7 @@
         <h2 class="text-center fs-1 fw-normal">- Product Feature -</h2>
         <div class="container my-3">
             <form class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-2" id="productSearchInput" type="search" placeholder="Search products..." aria-label="Search">
+                <input class="form-control mr-sm-2" id="searchInput" type="search" placeholder="Search products..." aria-label="Search">
             </form>
         </div>
         <div class="container">
@@ -65,7 +65,7 @@
 
     <?php
     require_once '../config/db.php';
-    $sql = "SELECT id, title, image, excerpt, created_at FROM articles ORDER BY created_at DESC LIMIT 3"; // Giới hạn lấy 3 bài mới nhất cho đẹp trang chủ
+    $sql = "SELECT id, title, image, excerpt, created_at FROM articles ORDER BY created_at DESC LIMIT 3"; 
     $result = mysqli_query($conn, $sql);
 
     if (!$result) {
@@ -93,33 +93,7 @@
 
     <script src="./assets/js/controllers/products.controller.js"></script>
     
-    <script>
-        $(document).ready(function() {
-            // Đã cập nhật ID mới: #searchPostInput
-            $("#searchPostInput").on("keyup", function() {
-                var value = $(this).val().toLowerCase().trim();
-                var hasResult = false;
-
-                $(".post-card").each(function() {
-                    var title = $(this).data("title");
-                    var excerpt = $(this).data("excerpt");
-
-                    if (title.indexOf(value) > -1 || excerpt.indexOf(value) > -1) {
-                        $(this).show();
-                        hasResult = true;
-                    } else {
-                        $(this).hide();
-                    }
-                });
-
-                if (!hasResult) {
-                    $("#noResults").removeClass("d-none");
-                } else {
-                    $("#noResults").addClass("d-none");
-                }
-            });
-        });
-    </script>
+    
 </body>
 
 </html>

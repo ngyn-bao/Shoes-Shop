@@ -210,7 +210,7 @@ $api = '../api/Product/';
         }
 
         async function deleteProduct(id) {
-            if (!confirm('Xóa thật nhé?')) return;
+            if (!confirm('Xóa?')) return;
             await fetch(api + 'deleteProduct.php', {
                 method: 'POST',
                 headers: {
