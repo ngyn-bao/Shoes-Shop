@@ -71,7 +71,7 @@ $total_faq = $conn->query("SELECT COUNT(*) AS total_faq FROM faq")->fetch_assoc(
 
                 <ul class="navbar-nav sidebar-menu">
                     <li class="nav-item">
-                        <a class="nav-link active" href="dashboard.php">
+                        <a class="nav-link active" href="index.php">
                             <i class="ti ti-home"></i>
                             <span class="ms-2">Dashboard</span>
                         </a>

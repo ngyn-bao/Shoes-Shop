@@ -44,12 +44,12 @@ if (isset($_GET['delete'])) {
                         </a>
                     </li>
 
-                    <li class="nav-item"><a class="nav-link text-white" href="admin_user.php"><i class="ti ti-user"></i><span class="ms-2">Quản lý người dùng</span></a></li>
-                    <li class="nav-item"><a class="nav-link text-white" href="products.php"><i class="ti ti-box"></i><span class="ms-2">Quản lý sản phẩm</span></a></li>
-                    <li class="nav-item"><a class="nav-link text-white" href="orders.php"><i class="ti ti-shopping-cart"></i><span class="ms-2">Quản lý đơn hàng</span></a></li>
+                    <li class="nav-item "><a class="nav-link text-white" href="admin_user.php"><i class="ti ti-user"></i><span class="ms-2 ">Quản lý người dùng</span></a></li>
+                    <li class="nav-item "><a class="nav-link text-white" href="products.php"><i class="ti ti-box"></i><span class="ms-2">Quản lý sản phẩm</span></a></li>
+                    <li class="nav-item "><a class="nav-link text-white" href="orders.php"><i class="ti ti-shopping-cart"></i><span class="ms-2">Quản lý đơn hàng</span></a></li>
                     <li class="nav-item"><a class="nav-link text-white" href="contacts.php"><i class="ti ti-mail"></i><span class="ms-2">Liên hệ</span></a></li>
-                    <li class="nav-item"><a class="nav-link text-white" href="ArticleIndex.php"><i class="ti ti-news"></i><span class="ms-2">Bài báo</span></a></li>
-                    <li class="nav-item"><a class="nav-link text-white" href="faq.php"><i class="ti ti-question-mark"></i><span class="ms-2">FAQ</span></a></li>
+                    <li class="nav-item "><a class="nav-link text-white" href="ArticleIndex.php"><i class="ti ti-news"></i><span class="ms-2">Bài báo</span></a></li>
+                    <li class="nav-item "><a class="nav-link text-white" href="admin_faq.php"><i class="ti ti-question-mark"></i><span class="ms-2">FAQ</span></a></li>
                     <li class="nav-item"><a class="nav-link text-white" href="questions.php"><i class="ti ti-help"></i><span class="ms-2">Câu hỏi</span></a></li>
                 </ul>
 
@@ -58,6 +58,7 @@ if (isset($_GET['delete'])) {
                 <button id="btnLogout" class="btn btn-danger w-100">Đăng xuất</button>
             </div>
         </aside>
+
 
         <!-- MAIN -->
         <div class="page-wrapper">
