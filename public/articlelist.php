@@ -1,9 +1,10 @@
 <?php
 require_once '../config/db.php';
 
-$limit = 6; 
-$page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
-if ($page < 1) $page = 1;
+$limit = 6;
+$page = isset($_GET['page']) ? (int) $_GET['page'] : 1;
+if ($page < 1)
+    $page = 1;
 $start = ($page - 1) * $limit;
 
 $totalResults = mysqli_query($conn, "SELECT COUNT(id) AS id FROM articles");
@@ -33,6 +34,18 @@ while ($row = mysqli_fetch_assoc($result)) {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="./assets/css/style.css" />
+    <style>
+        .page-link {
+            color: black;
+
+            text-decoration: none;
+        }
+
+        .page-link:hover {
+            color: #333;
+            text-decoration: underline;
+        }
+    </style>
 </head>
 
 <body>
@@ -90,7 +103,7 @@ while ($row = mysqli_fetch_assoc($result)) {
 
         <?php if ($totalPages > 1): ?>
             <nav aria-label="Page navigation" class="mt-5">
-                <ul class="pagination justify-content-center">   
+                <ul class="pagination justify-content-center">
                     <?php for ($i = 1; $i <= $totalPages; $i++): ?>
                         <li class="page-item <?= ($page == $i) ? 'active' : '' ?>">
                             <a class="page-link" href="?page=<?= $i ?>"><?= $i ?></a>
@@ -114,24 +127,25 @@ while ($row = mysqli_fetch_assoc($result)) {
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        $(document).ready(function() {
-            $("#searchInput").on("keyup", function() {
+        $(document).ready(function () {
+            $("#searchInput").on("keyup", function () {
                 var value = $(this).val().toLowerCase().trim();
                 var hasResult = false;
-                $(".post-card").each(function() {
-                    var title = $(this).data("title"); 
+                $(".post-card").each(function () {
+                    var title = $(this).data("title");
                     var excerpt = $(this).data("excerpt");
                     if (title.indexOf(value) > -1 || excerpt.indexOf(value) > -1) {
-                        $(this).show(); 
+                        $(this).show();
                         hasResult = true;
                     } else {
-                        $(this).hide(); 
+                        $(this).hide();
                     }
                 });
-                if (!hasResult) { $("#noResults").removeClass("d-none"); } 
+                if (!hasResult) { $("#noResults").removeClass("d-none"); }
                 else { $("#noResults").addClass("d-none"); }
             });
         });
     </script>
 </body>
+
 </html>

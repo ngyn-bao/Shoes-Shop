@@ -133,6 +133,11 @@ $api = '../api/Contact/';
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
+        const user = JSON.parse(localStorage.getItem("user"));
+        if (user["role"] !== "admin") {
+            alert("Bạn phải là admin để truy cập trang này!");
+            window.location.href = "../public/index.php";
+        }
         const api = '<?= $api ?>';
 
         async function loadContacts() {
@@ -172,14 +177,14 @@ $api = '../api/Contact/';
                     <td>${escape(c.email)}</td>
                     <td class="text-center">${escape(c.phone)}</td>
                     <td class="message-cell" title="${escape(c.message)}">
-                        ${escape(c.message.length > 80 ? c.message.substring(0,80) + '...' : c.message)}
+                        ${escape(c.message.length > 80 ? c.message.substring(0, 80) + '...' : c.message)}
                     </td>
                     <td class="text-center small text-muted">${date}</td>
                     <td class="text-center">
                         ${statusBadge}
                         <select class="form-select form-select-sm mt-1 statusSelect" data-id="${c.contact_id}">
-                            <option value="pending" ${c.status==='pending'?'selected':''}>Chưa đọc</option>
-                            <option value="read" ${c.status==='read'?'selected':''}>Đã đọc</option>
+                            <option value="pending" ${c.status === 'pending' ? 'selected' : ''}>Chưa đọc</option>
+                            <option value="read" ${c.status === 'read' ? 'selected' : ''}>Đã đọc</option>
                         </select>
                     </td>
                     <td class="text-center">

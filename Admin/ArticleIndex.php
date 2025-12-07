@@ -84,6 +84,11 @@
   </div>
 
   <script>
+    const user = JSON.parse(localStorage.getItem("user"));
+    if (user["role"] !== "admin") {
+      alert("Bạn phải là admin để truy cập trang này!");
+      window.location.href = "../public/index.php";
+    }
     function deleteArticle(id) {
       if (confirm('Bạn có chắc chắn muốn xóa bài viết này?')) {
         fetch('../api/Articles/deleteArticle.php', {

@@ -20,7 +20,7 @@
 </head>
 
 <body>
-    
+
     <div class="container py-5">
         <div class="card shadow">
             <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
@@ -39,6 +39,11 @@
     </div>
 
     <script>
+        const user = JSON.parse(localStorage.getItem("user"));
+        if (user["role"] !== "admin") {
+            alert("Bạn phải là admin để truy cập trang này!");
+            window.location.href = "../public/index.php";
+        }
         const params = new URLSearchParams(location.search);
         const orderId = params.get('id');
         if (!orderId) {
@@ -69,7 +74,7 @@
                     shipped: 'Đã giao',
                     delivered: 'Hoàn thành',
                     cancelled: 'Đã hủy'
-                } [o.status] || o.status;
+                }[o.status] || o.status;
 
                 const statusClass = {
                     pending: 'bg-warning text-dark',
@@ -77,12 +82,12 @@
                     shipped: 'bg-primary text-white',
                     delivered: 'bg-success text-white',
                     cancelled: 'bg-danger text-white'
-                } [o.status] || 'bg-secondary';
+                }[o.status] || 'bg-secondary';
 
                 let rows = '';
                 items.forEach((it, i) => {
                     rows += `<tr>
-                <td class="text-center">${i+1}</td>
+                <td class="text-center">${i + 1}</td>
                 <td>
                     <div class="d-flex align-items-center gap-3">
                         <div>
