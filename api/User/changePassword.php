@@ -23,6 +23,6 @@ if (!password_verify($old, $row['password_hash'])) {
     exit;
 }
 
-mysqli_query($conn, "UPDATE users SET password='$new' WHERE user_id=$user_id");
+mysqli_query($conn, "UPDATE users SET password_hash='$new' WHERE user_id=$user_id");
 
 echo json_encode(["success" => true, "message" => "Password updated"]);
