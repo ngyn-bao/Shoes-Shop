@@ -18,10 +18,10 @@ $title = $_POST['title'];
 $content = $_POST['content'];
 $image = $_POST['image'];
 
-if (!$page || !$title || !$content) {
+if (!$page) {
     echo json_encode([
         "success" => false,
-        "message" => "Missing data"
+        "message" => "Missing page"
     ]);
     exit;
 }

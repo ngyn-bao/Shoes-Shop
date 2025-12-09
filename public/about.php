@@ -28,18 +28,20 @@
     </div>
 
     <script>
-    fetch("/api/site/getPageContent.php?page=about")
+    fetch("/api/SiteContent/getPageContent.php?page=about")
     .then(res => res.json())
     .then(res => {
         const data = res.data;
 
         document.getElementById("aboutContent").innerHTML = `
-            <div class="col-md-6 mb-3">
-                <h1 class="my-4">${data.title}</h1>
-                <p>${data.content}</p>
+            <h1 class="mb-4">${data.title}</h1>
+
+            <div class="content-area fs-5">
+                ${data.content_html}
             </div>
-            <div class="col-md-6">
-                <img src="${data.image_url}" class="img-fluid rounded">
+
+            <div class="text-center my-4">
+                <img src="${data.image_url}" class="img-fluid rounded" style="max-height:350px; object-fit:cover;">
             </div>
         `;
     });

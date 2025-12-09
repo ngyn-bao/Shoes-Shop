@@ -75,8 +75,9 @@
 
         <li class="nav-item"><a href="./articlelist.php" class="nav-link">Blog</a></li>
 
-        <li class="nav-item"><a href="./faq.php" class="nav-link">Faq</a></li>
-        <li class="nav-item"><a href="./contact.php" class="nav-link">Contact</a></li>
+        <li class="nav-item"><a href="./faq.php" class="nav-link">FAQs</a></li>
+        <li class="nav-item"><a href="./about.php" class="nav-link">About us</a></li>
+        <li class="nav-item"><a href="./contact.php" class="nav-link">Contact us</a></li>
       </ul>
     </div>
   </nav>

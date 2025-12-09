@@ -15,7 +15,7 @@ class SiteContent {
         $sql = "
             SELECT * 
             FROM site_content 
-            WHERE page = ?
+            WHERE page_name = ?
         ";
 
         $stmt = mysqli_prepare($this->conn, $sql);
@@ -32,7 +32,7 @@ class SiteContent {
     public function updatePageContent($page, $title, $content, $image) {
         $sql = "
             UPDATE site_content 
-            SET title = ?, content = ?, image_url = ? 
+            SET title = ?, content_html = ?, image_url = ? 
             WHERE page = ?
         ";
 
